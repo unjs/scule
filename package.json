@@ -1,0 +1,34 @@
+{
+  "name": "scule",
+  "version": "0.0.0",
+  "description": "",
+  "repository": "nuxt-contrib/scule",
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "siroc build",
+    "lint": "eslint --ext .ts .",
+    "prepublishOnly": "yarn build",
+    "release": "yarn test && standard-version && git push --follow-tags && npm publish",
+    "test": "yarn lint && jest"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@nuxtjs/eslint-config-typescript": "latest",
+    "@types/flat": "latest",
+    "@types/jest": "latest",
+    "@types/node": "latest",
+    "eslint": "latest",
+    "jest": "latest",
+    "siroc": "latest",
+    "standard-version": "latest",
+    "ts-jest": "latest",
+    "typescript": "latest"
+  }
+}
