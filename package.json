@@ -1,6 +1,6 @@
 {
   "name": "scule",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "repository": "nuxt-contrib/scule",
   "license": "MIT",
@@ -18,7 +18,6 @@
     "release": "yarn test && standard-version && git push --follow-tags && npm publish",
     "test": "yarn lint && jest"
   },
-  "dependencies": {},
   "devDependencies": {
     "@nuxtjs/eslint-config-typescript": "latest",
     "@types/flat": "latest",
