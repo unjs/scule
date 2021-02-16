@@ -2,7 +2,7 @@ export function isUppercase (char: string = '') {
   return char.toUpperCase() === char
 }
 
-const STR_SPLITTERS = ['-', '_', '/']
+const STR_SPLITTERS = ['-', '_', '/', '.']
 
 export function splitByCase (str: string, splitters = STR_SPLITTERS): string[] {
   const parts: string[] = []

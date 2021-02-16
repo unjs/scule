@@ -66,7 +66,7 @@ Converts first charachter to lower case
 
 ### `splitByCase(str, splitters?)`
 
-- Splits string by splitters (default: `['-', '_', '/']`)
+- Splits string by splitters (default: `['-', '_', '/', '.]`)
 - Splits when case changes from lower to upper (only rising edges)
 - Case is preserved in returned value
 - Is an irreversible function since splitters are omitted
