@@ -38,7 +38,7 @@ Splits string and joins by PascalCase convention (`foo-bar` => `FooBar`)
 
 **Remarks:**
 
-- If an upper case if followed by other upper case chars (like `FooBAR`), it is preserved
+- If an uppercase letter is followed by other uppercase letters (like `FooBAR`), they are preserved
 
 ### `camelCase`
 
@@ -50,7 +50,7 @@ Splits string and joins by kebab-case convention (`fooBar` => `foo-bar`)
 
 **Remarks:**
 
-- It does **not** preserves case
+- It does **not** preserve case
 
 ### `snakeCase`
 
@@ -58,15 +58,15 @@ Splits string and joins by snake_case convention (`foo-bar` => `foo_bar`)
 
 ### `upperFirst(str)`
 
-Converts first charachter to upper case
+Converts first character to upper case
 
 ### `lowerFirst(str)`
 
-Converts first charachter to lower case
+Converts first character to lower case
 
 ### `splitByCase(str, splitters?)`
 
-- Splits string by splitters (default: `['-', '_', '/', '.]`)
+- Splits string by the splitters provided (default: `['-', '_', '/', '.]`)
 - Splits when case changes from lower to upper (only rising edges)
 - Case is preserved in returned value
 - Is an irreversible function since splitters are omitted
