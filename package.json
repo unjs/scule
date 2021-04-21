@@ -5,8 +5,14 @@
   "repository": "nuxt-contrib/scule",
   "license": "MIT",
   "sideEffects": false,
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "exports": {
+      ".": {
+          "import": "./dist/esm/index.js",
+          "require": "./dist/cjs/index.js"
+      }
+  },
   "types": "dist/index.d.ts",
   "files": [
     "dist"
