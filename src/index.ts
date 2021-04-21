@@ -62,10 +62,26 @@ export function camelCase (str: string | string[] = ''): string {
   return lowerFirst(pascalCase(str))
 }
 
-export function kebabCase (str: string | string[] = '', joiner = '-'): string {
+export function kebabCase3 (str: string | string[] = '', joiner = '-'): string {
   return (Array.isArray(str) ? str : splitByCase(str))
     .map((p = '') => p.toLocaleLowerCase())
     .join(joiner)
+}
+
+function toLocaleLowerCase (p = ''): string {
+  return p.toLocaleLowerCase()
+}
+
+export function kebabCase (str: string | string[] = '', joiner = '-'): string {
+  if (!Array.isArray(str)) {
+    str = splitByCase(str)
+  }
+  let i: number = 0
+  let rstr: string = ''
+  for (; i < str.length - 1; i++) {
+    rstr += toLocaleLowerCase(str[i]) + joiner
+  }
+  return rstr + toLocaleLowerCase(str[i])
 }
 
 export function snakeCase (str: string | string[] = '') {

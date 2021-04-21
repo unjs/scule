@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "build": "siroc build",
-    "lint": "eslint --ext .ts .",
+    "lint": "eslint --ext .ts,.js .",
     "prepublishOnly": "yarn build",
     "release": "yarn test && standard-version && git push --follow-tags && npm publish",
     "test": "yarn lint && jest"
@@ -23,6 +23,7 @@
     "@types/flat": "latest",
     "@types/jest": "latest",
     "@types/node": "latest",
+    "esbuild-register": "^2.5.0",
     "eslint": "latest",
     "jest": "latest",
     "siroc": "latest",
