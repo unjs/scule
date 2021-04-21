@@ -62,12 +62,6 @@ export function camelCase (str: string | string[] = ''): string {
   return lowerFirst(pascalCase(str))
 }
 
-export function kebabCase3 (str: string | string[] = '', joiner = '-'): string {
-  return (Array.isArray(str) ? str : splitByCase(str))
-    .map((p = '') => p.toLocaleLowerCase())
-    .join(joiner)
-}
-
 function toLocaleLowerCase (p = ''): string {
   return p.toLocaleLowerCase()
 }
