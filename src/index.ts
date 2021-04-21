@@ -53,9 +53,15 @@ export function lowerFirst (str: string): string {
 }
 
 export function pascalCase (str: string | string[] = ''): string {
-  return (Array.isArray(str) ? str : splitByCase(str))
-    .map(p => upperFirst(p))
-    .join('')
+  if (!Array.isArray(str)) {
+    str = splitByCase(str)
+  }
+  let i: number = 0
+  let rstr: string = ''
+  for (; i < str.length; i++) {
+    rstr += upperFirst(str[i])
+  }
+  return rstr
 }
 
 export function camelCase (str: string | string[] = ''): string {
