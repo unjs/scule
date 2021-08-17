@@ -9,7 +9,8 @@ describe('splitByCase', () => {
     FooBarBaz: ['Foo', 'Bar', 'Baz'],
     'foo_bar-baz/qux': ['foo', 'bar', 'baz', 'qux'],
     'foo--bar-Baz': ['foo', '', 'bar', 'Baz'],
-    FOOBar: ['FOOBar']
+    FOOBar: ['FOO', 'Bar'],
+    ALink: ['A', 'Link']
   }
 
   for (const input in tests) {
@@ -53,7 +54,8 @@ describe('kebabCase', () => {
     'foo/Bar': 'foo-bar',
     'foo-bAr': 'foo-b-ar',
     'foo--bar': 'foo--bar',
-    FooBAR: 'foo-bar'
+    FooBAR: 'foo-bar',
+    ALink: 'a-link'
   }
 
   for (const input in tests) {

@@ -7,38 +7,51 @@ const STR_SPLITTERS = ['-', '_', '/', '.']
 export function splitByCase (str: string, splitters = STR_SPLITTERS): string[] {
   const parts: string[] = []
 
-  let buff = ''
+  if (!str || typeof str !== 'string') {
+    return parts
+  }
 
-  let previusUpper = isUppercase(str[0])
-  let previousSplitter = splitters.includes(str[0])
+  let buff: string = ''
+
+  let previusUpper = null
+  let previousSplitter = null
 
   for (const char of str.split('')) {
+    // Splitter
     const isSplitter = splitters.includes(char)
-    if (isSplitter) {
+    if (isSplitter === true) {
       parts.push(buff)
       buff = ''
-      previusUpper = false
-      previousSplitter = true
+      previusUpper = null
       continue
     }
 
     const isUpper = isUppercase(char)
-    if (!previousSplitter && (!previusUpper && isUpper /* rising edge */)) {
-      parts.push(buff)
-      buff = char
-      previusUpper = isUpper
-      previousSplitter = false
-      continue
+    if (previousSplitter === false) {
+      // Case rising edge
+      if (previusUpper === false && isUpper === true) {
+        parts.push(buff)
+        buff = char
+        previusUpper = isUpper
+        continue
+      }
+      // Case falling edge
+      if (previusUpper === true && isUpper === false && buff.length > 1) {
+        const lastChar = buff[buff.length - 1]
+        parts.push(buff.substr(0, buff.length - 1))
+        buff = lastChar + char
+        previusUpper = isUpper
+        continue
+      }
     }
 
+    // Normal char
     buff += char
     previusUpper = isUpper
     previousSplitter = isSplitter
   }
 
-  if (buff) {
-    parts.push(buff)
-  }
+  parts.push(buff)
 
   return parts
 }
