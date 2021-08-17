@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/nuxt-contrib/scule/compare/v0.2.1...v0.3.0) (2021-08-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* handle lower edges (resolves #4)
+
+### Bug Fixes
+
+* handle lower edges (resolves [#4](https://github.com/nuxt-contrib/scule/issues/4)) ([bb94236](https://github.com/nuxt-contrib/scule/commit/bb942369b2548b995aefc306a0e0f3fbba923426))
+
 ### [0.2.1](https://github.com/nuxt-contrib/scule/compare/v0.2.0...v0.2.1) (2021-04-28)
 
 ## [0.2.0](https://github.com/nuxt-contrib/scule/compare/v0.1.1...v0.2.0) (2021-04-22)
