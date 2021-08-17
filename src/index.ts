@@ -19,16 +19,21 @@ export function splitByCase (str: string, splitters = STR_SPLITTERS): string[] {
       buff = ''
       previusUpper = false
       previousSplitter = true
-    } else if (!previousSplitter && !previusUpper && isUppercase(char)) {
+      continue
+    }
+
+    const isUpper = isUppercase(char)
+    if (!previousSplitter && (!previusUpper && isUpper /* rising edge */)) {
       parts.push(buff)
       buff = char
-      previusUpper = true
+      previusUpper = isUpper
       previousSplitter = false
-    } else {
-      buff += char
-      previusUpper = isUppercase(char)
-      previousSplitter = isSplitter
+      continue
     }
+
+    buff += char
+    previusUpper = isUpper
+    previousSplitter = isSplitter
   }
 
   if (buff) {
