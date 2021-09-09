@@ -80,10 +80,38 @@ export function camelCase (str: string | string[] = ''): string {
   return lowerFirst(pascalCase(str))
 }
 
+export function appendIfMissing (str: string, suffix: string, ...suffixes: string[]): string {
+  if (!suffix) {
+    return str
+  }
+  if (suffixes.length > 0) {
+    for (const s of suffixes) {
+      if (str.endsWith(s)) {
+        return str
+      }
+    }
+  }
+  return str + suffix
+}
+
 export function kebabCase (str: string | string[] = '', joiner = '-'): string {
   return (Array.isArray(str) ? str : splitByCase(str))
     .map((p = '') => p.toLocaleLowerCase())
     .join(joiner)
+}
+
+export function prependIfMissing (str: string, prefix: string, ...prefixes:string[]): string {
+  if (!prefix) {
+    return str
+  }
+  if (prefixes.length > 0) {
+    for (const p of prefixes) {
+      if (str.startsWith(p)) {
+        return str
+      }
+    }
+  }
+  return prefix + str
 }
 
 export function snakeCase (str: string | string[] = '') {

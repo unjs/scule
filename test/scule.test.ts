@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { splitByCase, pascalCase, kebabCase, camelCase, upperFirst, lowerFirst, snakeCase } from '../src'
+import { splitByCase, pascalCase, kebabCase, camelCase, appendIfMissing, upperFirst, lowerFirst, prependIfMissing, snakeCase } from '../src'
 
 describe('splitByCase', () => {
   const tests = {
@@ -34,6 +34,24 @@ describe('pascalCase', () => {
       expect(pascalCase(input)).toBe(tests[input])
     })
   }
+})
+
+describe('appendIfMissing', () => {
+  const tests = {
+    foo: 'fooqux',
+    'foo-bar': 'foo-barqux',
+    'foo-bar-baz': 'foo-bar-bazqux'
+  }
+
+  for (const input in tests) {
+    test(input + ' => ' + tests[input], () => {
+      expect(appendIfMissing(input, 'qux')).toBe(tests[input])
+    })
+  }
+
+  test('abcMNO [xyz, mno] => abcMNOxyz', () => {
+    expect(appendIfMissing('abcMNO', 'xyz', 'mno')).toBe('abcMNOxyz')
+  })
 })
 
 describe('camelCase', () => {
@@ -103,4 +121,22 @@ describe('lowerFirst', () => {
       expect(lowerFirst(input)).toBe(tests[input])
     })
   }
+})
+
+describe('prependIfMissing', () => {
+  const tests = {
+    abc: ['xyz', 'xyzabc'],
+    '': ['xyz', 'xyz'],
+    def: [undefined, 'def']
+  }
+
+  for (const input in tests) {
+    test(input + ' + ' + tests[input][0] + ' = ' + tests[input][1], () => {
+      expect(prependIfMissing(input, tests[input][0])).toBe(tests[input][1])
+    })
+  }
+
+  test('MNOabc [xyz, mno] => xyzMNOabc', () => {
+    expect(prependIfMissing('MNOabc', 'xyz', 'mno')).toBe('xyzMNOabc')
+  })
 })
