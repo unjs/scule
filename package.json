@@ -2,7 +2,7 @@
   "name": "scule",
   "version": "0.3.0",
   "description": "",
-  "repository": "nuxt-contrib/scule",
+  "repository": "unjs/scule",
   "license": "MIT",
   "sideEffects": false,
   "exports": {
