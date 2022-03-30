@@ -71,6 +71,10 @@ Converts first character to lower case
 - Case is preserved in returned value
 - Is an irreversible function since splitters are omitted
 
+### `snakeCamel(str)`
+
+Convert snake_case to camelCase
+
 ## License
 
 [MIT](./LICENSE)

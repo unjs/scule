@@ -89,3 +89,12 @@ export function kebabCase (str: string | string[] = '', joiner = '-'): string {
 export function snakeCase (str: string | string[] = '') {
   return kebabCase(str, '_')
 }
+
+export function snakeCamel (str: string): string {
+  return str.replace(
+    /([-_][a-z])/g,
+    (group: string) => group.toUpperCase()
+      .replace('-', '')
+      .replace('_', '')
+  )
+}

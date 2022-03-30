@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { splitByCase, pascalCase, kebabCase, camelCase, upperFirst, lowerFirst, snakeCase } from '../src'
+import { splitByCase, pascalCase, kebabCase, camelCase, upperFirst, lowerFirst, snakeCase, snakeCamel } from '../src'
 
 describe('splitByCase', () => {
   const tests = {
@@ -101,6 +101,20 @@ describe('lowerFirst', () => {
   for (const input in tests) {
     test(input + ' => ' + tests[input], () => {
       expect(lowerFirst(input)).toBe(tests[input])
+    })
+  }
+})
+
+describe('snakeCamel', () => {
+  const tests = {
+    '': '',
+    'foo-bar': 'fooBar',
+    foo_bar: 'fooBar',
+    foobar: 'foobar'
+  }
+  for (const input in tests) {
+    test(input + ' => ' + tests[input], () => {
+      expect(snakeCamel(input)).toBe(tests[input])
     })
   }
 })
