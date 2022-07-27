@@ -1,4 +1,4 @@
-// @ts-nocheck
+import { describe, test, expect } from 'vitest'
 import { splitByCase, pascalCase, kebabCase, camelCase, upperFirst, lowerFirst, snakeCase } from '../src'
 
 describe('splitByCase', () => {
