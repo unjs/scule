@@ -82,11 +82,11 @@ Converts first character to lower case
 [npm-downloads-src]: https://img.shields.io/npm/dm/scule?style=flat-square
 [npm-downloads-href]: https://npmjs.com/package/scule
 
-[github-actions-src]: https://img.shields.io/github/workflow/status/nuxt-contrib/scule/ci/main?style=flat-square
-[github-actions-href]: https://github.com/nuxt-contrib/scule/actions?query=workflow%3Aci
+[github-actions-src]: https://img.shields.io/github/workflow/status/unjs/scule/ci/main?style=flat-square
+[github-actions-href]: https://github.com/unjs/scule/actions?query=workflow%3Aci
 
-[codecov-src]: https://img.shields.io/codecov/c/gh/nuxt-contrib/scule/main?style=flat-square
-[codecov-href]: https://codecov.io/gh/nuxt-contrib/scule
+[codecov-src]: https://img.shields.io/codecov/c/gh/unjs/scule/main?style=flat-square
+[codecov-href]: https://codecov.io/gh/unjs/scule
 
 [bundle-src]: https://img.shields.io/bundlephobia/minzip/scule?style=flat-square
 [bundle-href]: https://bundlephobia.com/result?p=scule
