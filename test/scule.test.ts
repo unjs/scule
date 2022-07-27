@@ -9,6 +9,7 @@ describe('splitByCase', () => {
     FooBarBaz: ['Foo', 'Bar', 'Baz'],
     'foo_bar-baz/qux': ['foo', 'bar', 'baz', 'qux'],
     'foo--bar-Baz': ['foo', '', 'bar', 'Baz'],
+    'foo123-bar': ['foo123', 'bar'],
     FOOBar: ['FOO', 'Bar'],
     ALink: ['A', 'Link']
   }

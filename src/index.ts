@@ -1,4 +1,9 @@
-export function isUppercase (char: string = '') {
+const NUNBER_CHAR_RE = /[0-9]/
+
+export function isUppercase (char: string = ''): boolean | null {
+  if (NUNBER_CHAR_RE.test(char)) {
+    return null
+  }
   return char.toUpperCase() === char
 }
 
