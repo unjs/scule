@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.1](https://github.com/unjs/scule/compare/v0.3.0...v0.3.1) (2022-07-27)
+
+
+### Bug Fixes
+
+* use stable `toLowerCase` ([a0a6c06](https://github.com/unjs/scule/commit/a0a6c0609c23c4def73f63e4cb45eb3fac596904)), closes [#8](https://github.com/unjs/scule/issues/8)
+
 ## [0.3.0](https://github.com/unjs/scule/compare/v0.2.1...v0.3.0) (2021-08-17)
 
 
