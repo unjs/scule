@@ -60,14 +60,14 @@ export function upperFirst (str: string): string {
   if (!str) {
     return ''
   }
-  return str[0].toUpperCase() + str.substr(1)
+  return str[0].toUpperCase() + str.substring(1)
 }
 
 export function lowerFirst (str: string): string {
   if (!str) {
     return ''
   }
-  return str[0].toLocaleLowerCase() + str.substr(1)
+  return str[0].toLowerCase() + str.substring(1)
 }
 
 export function pascalCase (str: string | string[] = ''): string {
@@ -82,7 +82,7 @@ export function camelCase (str: string | string[] = ''): string {
 
 export function kebabCase (str: string | string[] = '', joiner = '-'): string {
   return (Array.isArray(str) ? str : splitByCase(str))
-    .map((p = '') => p.toLocaleLowerCase())
+    .map((p = '') => p.toLowerCase())
     .join(joiner)
 }
 
