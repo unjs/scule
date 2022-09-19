@@ -18,8 +18,8 @@ export function splitByCase (str: string, splitters = STR_SPLITTERS): string[] {
 
   let buff: string = ''
 
-  let previousUpper = null
-  let previousSplitter = null
+  let previousUpper: boolean | null = null
+  let previousSplitter: boolean | null = null
 
   for (const char of str.split('')) {
     // Splitter
