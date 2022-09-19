@@ -1,7 +1,7 @@
-const NUNBER_CHAR_RE = /[0-9]/
+const NUMBER_CHAR_RE = /[0-9]/
 
 export function isUppercase (char: string = ''): boolean | null {
-  if (NUNBER_CHAR_RE.test(char)) {
+  if (NUMBER_CHAR_RE.test(char)) {
     return null
   }
   return char.toUpperCase() === char
@@ -18,7 +18,7 @@ export function splitByCase (str: string, splitters = STR_SPLITTERS): string[] {
 
   let buff: string = ''
 
-  let previusUpper = null
+  let previousUpper = null
   let previousSplitter = null
 
   for (const char of str.split('')) {
@@ -27,32 +27,32 @@ export function splitByCase (str: string, splitters = STR_SPLITTERS): string[] {
     if (isSplitter === true) {
       parts.push(buff)
       buff = ''
-      previusUpper = null
+      previousUpper = null
       continue
     }
 
     const isUpper = isUppercase(char)
     if (previousSplitter === false) {
       // Case rising edge
-      if (previusUpper === false && isUpper === true) {
+      if (previousUpper === false && isUpper === true) {
         parts.push(buff)
         buff = char
-        previusUpper = isUpper
+        previousUpper = isUpper
         continue
       }
       // Case falling edge
-      if (previusUpper === true && isUpper === false && buff.length > 1) {
+      if (previousUpper === true && isUpper === false && buff.length > 1) {
         const lastChar = buff[buff.length - 1]
         parts.push(buff.substr(0, buff.length - 1))
         buff = lastChar + char
-        previusUpper = isUpper
+        previousUpper = isUpper
         continue
       }
     }
 
     // Normal char
     buff += char
-    previusUpper = isUpper
+    previousUpper = isUpper
     previousSplitter = isSplitter
   }
 
