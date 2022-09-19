@@ -43,7 +43,7 @@ export function splitByCase (str: string, splitters = STR_SPLITTERS): string[] {
       // Case falling edge
       if (previousUpper === true && isUpper === false && buff.length > 1) {
         const lastChar = buff[buff.length - 1]
-        parts.push(buff.substr(0, buff.length - 1))
+        parts.push(buff.substring(0, buff.length - 1))
         buff = lastChar + char
         previousUpper = isUpper
         continue
