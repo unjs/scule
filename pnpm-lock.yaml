@@ -4,7 +4,7 @@ specifiers:
   '@nuxtjs/eslint-config-typescript': latest
   '@types/flat': latest
   '@types/node': latest
-  c8: ^7.12.0
+  '@vitest/coverage-c8': ^0.23.4
   eslint: latest
   standard-version: latest
   typescript: latest
@@ -15,7 +15,7 @@ devDependencies:
   '@nuxtjs/eslint-config-typescript': 11.0.0_irgkl5vooow2ydyo6aokmferha
   '@types/flat': 5.0.2
   '@types/node': 18.7.18
-  c8: 7.12.0
+  '@vitest/coverage-c8': 0.23.4
   eslint: 8.23.1
   standard-version: 9.5.0
   typescript: 4.8.3
@@ -669,6 +669,24 @@ packages:
     dependencies:
       '@typescript-eslint/types': 5.38.0
       eslint-visitor-keys: 3.3.0
+    dev: true
+
+  /@vitest/coverage-c8/0.23.4:
+    resolution: {integrity: sha512-jmD00a5DQH9gu9K+YdvVhcMuv2CzHvU4gCnySS40Ec5hKlXtlCzRfNHl00VnhfuBeaQUmaQYe60BLT413HyDdg==}
+    dependencies:
+      c8: 7.12.0
+      vitest: 0.23.4
+    transitivePeerDependencies:
+      - '@edge-runtime/vm'
+      - '@vitest/browser'
+      - '@vitest/ui'
+      - happy-dom
+      - jsdom
+      - less
+      - sass
+      - stylus
+      - supports-color
+      - terser
     dev: true
 
   /JSONStream/1.3.5:
