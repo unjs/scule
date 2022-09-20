@@ -35,8 +35,8 @@
     "eslint": "latest",
     "standard-version": "latest",
     "typescript": "latest",
-    "unbuild": "^0.7.6",
-    "vitest": "^0.19.1"
+    "unbuild": "^0.8.11",
+    "vitest": "^0.23.4"
   },
-  "packageManager": "pnpm@7.6.0"
+  "packageManager": "pnpm@7.12.1"
 }
