@@ -23,6 +23,7 @@ describe('splitByCase', () => {
 
 describe('pascalCase', () => {
   const tests = {
+    '': '',
     foo: 'Foo',
     'foo-bAr': 'FooBAr',
     FooBARb: 'FooBARb',
@@ -51,6 +52,7 @@ describe('camelCase', () => {
 
 describe('kebabCase', () => {
   const tests = {
+    '': '',
     foo: 'foo',
     'foo/Bar': 'foo-bar',
     'foo-bAr': 'foo-b-ar',
