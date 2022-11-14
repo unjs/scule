@@ -31,12 +31,12 @@
     "@nuxtjs/eslint-config-typescript": "latest",
     "@types/flat": "latest",
     "@types/node": "latest",
-    "@vitest/coverage-c8": "^0.25.1",
+    "@vitest/coverage-c8": "^0.25.2",
     "eslint": "latest",
     "standard-version": "latest",
     "typescript": "latest",
     "unbuild": "^0.9.4",
-    "vitest": "^0.25.1"
+    "vitest": "^0.25.2"
   },
-  "packageManager": "pnpm@7.15.0"
+  "packageManager": "pnpm@7.16.0"
 }
