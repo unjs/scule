@@ -1,6 +1,7 @@
 import { CamelCase, JoinByCase, PascalCase, SplitByCase } from "./types";
 
 const NUMBER_CHAR_RE = /\d/;
+const STR_SPLITTERS = ["-", "_", "/", "."] as const;
 
 export function isUppercase (char: string = ""): boolean | undefined {
   if (NUMBER_CHAR_RE.test(char)) {
@@ -9,9 +10,6 @@ export function isUppercase (char: string = ""): boolean | undefined {
   return char.toUpperCase() === char;
 }
 
-const STR_SPLITTERS = ["-", "_", "/", "."] as const;
-
-/* eslint-disable no-redeclare */
 export function splitByCase <T extends string> (string_: T): SplitByCase<T>
 export function splitByCase <T extends string, Separator extends readonly string[]> (string_: T, separators: Separator): SplitByCase<T, Separator[number]>
 export function splitByCase <T extends string, Separator extends readonly string[]> (string_: T, separators?: Separator) {
@@ -66,7 +64,6 @@ export function splitByCase <T extends string, Separator extends readonly string
 
   return parts as SplitByCase<T, Separator[number]>;
 }
-/* eslint-enable no-redeclare */
 
 export function upperFirst <S extends string> (string_: S): Capitalize<S> {
   return (!string_ ? "" : string_[0].toUpperCase() + string_.slice(1)) as Capitalize<S>;
@@ -76,7 +73,6 @@ export function lowerFirst <S extends string> (string_: S): Uncapitalize<S> {
   return (!string_ ? "" : string_[0].toLowerCase() + string_.slice(1)) as Uncapitalize<S>;
 }
 
-/* eslint-disable no-redeclare */
 export function pascalCase (): ""
 export function pascalCase <T extends string | readonly string[]> (string_: T): PascalCase<T>
 export function pascalCase <T extends string | readonly string[]> (string_?: T) {
@@ -86,17 +82,13 @@ export function pascalCase <T extends string | readonly string[]> (string_?: T) 
       .map(p => upperFirst(p))
       .join("") as PascalCase<T>;
 }
-/* eslint-enable no-redeclare */
 
-/* eslint-disable no-redeclare */
 export function camelCase (): ""
 export function camelCase <T extends string | readonly string[]> (string_: T): CamelCase<T>
 export function camelCase <T extends string | readonly string[]> (string_?: T) {
   return lowerFirst(pascalCase(string_)) as CamelCase<T>;
 }
-/* eslint-enable no-redeclare */
 
-/* eslint-disable no-redeclare */
 export function kebabCase (): ""
 export function kebabCase <T extends string | readonly string[]> (string_: T): JoinByCase<T, "-">
 export function kebabCase <T extends string | readonly string[], Joiner extends string> (string_: T, joiner: Joiner): JoinByCase<T, Joiner>
@@ -107,12 +99,9 @@ export function kebabCase <T extends string | readonly string[], Joiner extends 
       .map(p => p.toLowerCase())
       .join(joiner ?? "-") as JoinByCase<T, Joiner>;
 }
-/* eslint-enable no-redeclare */
 
-/* eslint-disable no-redeclare */
 export function snakeCase (): ""
 export function snakeCase <T extends string | readonly string[]> (string_: T): JoinByCase<T, "_">
 export function snakeCase <T extends string | readonly string[]> (string_?: T) {
   return kebabCase(string_, "_") as JoinByCase<T, "_">;
 }
-/* eslint-enable no-redeclare */
