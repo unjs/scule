@@ -1,118 +1,118 @@
-import { CamelCase, JoinByCase, PascalCase, SplitByCase } from './types'
+import { CamelCase, JoinByCase, PascalCase, SplitByCase } from "./types";
 
-const NUMBER_CHAR_RE = /[0-9]/
+const NUMBER_CHAR_RE = /\d/;
 
-export function isUppercase (char: string = ''): boolean | null {
+export function isUppercase (char: string = ""): boolean | undefined {
   if (NUMBER_CHAR_RE.test(char)) {
-    return null
+    return undefined;
   }
-  return char.toUpperCase() === char
+  return char.toUpperCase() === char;
 }
 
-const STR_SPLITTERS = ['-', '_', '/', '.'] as const
+const STR_SPLITTERS = ["-", "_", "/", "."] as const;
 
 /* eslint-disable no-redeclare */
-export function splitByCase <T extends string> (str: T): SplitByCase<T>
-export function splitByCase <T extends string, Sep extends readonly string[]> (str: T, separators: Sep): SplitByCase<T, Sep[number]>
-export function splitByCase <T extends string, Sep extends readonly string[]> (str: T, separators?: Sep) {
-  const splitters = separators ?? STR_SPLITTERS
-  const parts: string[] = []
+export function splitByCase <T extends string> (string_: T): SplitByCase<T>
+export function splitByCase <T extends string, Separator extends readonly string[]> (string_: T, separators: Separator): SplitByCase<T, Separator[number]>
+export function splitByCase <T extends string, Separator extends readonly string[]> (string_: T, separators?: Separator) {
+  const splitters = separators ?? STR_SPLITTERS;
+  const parts: string[] = [];
 
-  if (!str || typeof str !== 'string') {
-    return parts as SplitByCase<T, Sep[number]>
+  if (!string_ || typeof string_ !== "string") {
+    return parts as SplitByCase<T, Separator[number]>;
   }
 
-  let buff: string = ''
+  let buff: string = "";
 
-  let previousUpper: boolean | null = null
-  let previousSplitter: boolean | null = null
+  let previousUpper: boolean | undefined;
+  let previousSplitter: boolean | undefined;
 
-  for (const char of str.split('')) {
+  for (const char of string_) {
     // Splitter
-    const isSplitter = (splitters as unknown as string).includes(char)
+    const isSplitter = (splitters as unknown as string).includes(char);
     if (isSplitter === true) {
-      parts.push(buff)
-      buff = ''
-      previousUpper = null
-      continue
+      parts.push(buff);
+      buff = "";
+      previousUpper = undefined;
+      continue;
     }
 
-    const isUpper = isUppercase(char)
+    const isUpper = isUppercase(char);
     if (previousSplitter === false) {
       // Case rising edge
       if (previousUpper === false && isUpper === true) {
-        parts.push(buff)
-        buff = char
-        previousUpper = isUpper
-        continue
+        parts.push(buff);
+        buff = char;
+        previousUpper = isUpper;
+        continue;
       }
       // Case falling edge
       if (previousUpper === true && isUpper === false && buff.length > 1) {
-        const lastChar = buff[buff.length - 1]
-        parts.push(buff.substring(0, buff.length - 1))
-        buff = lastChar + char
-        previousUpper = isUpper
-        continue
+        const lastChar = buff[buff.length - 1];
+        parts.push(buff.slice(0, Math.max(0, buff.length - 1)));
+        buff = lastChar + char;
+        previousUpper = isUpper;
+        continue;
       }
     }
 
     // Normal char
-    buff += char
-    previousUpper = isUpper
-    previousSplitter = isSplitter
+    buff += char;
+    previousUpper = isUpper;
+    previousSplitter = isSplitter;
   }
 
-  parts.push(buff)
+  parts.push(buff);
 
-  return parts as SplitByCase<T, Sep[number]>
+  return parts as SplitByCase<T, Separator[number]>;
 }
 /* eslint-enable no-redeclare */
 
-export function upperFirst <S extends string> (str: S): Capitalize<S> {
-  return (!str ? '' : str[0].toUpperCase() + str.substring(1)) as Capitalize<S>
+export function upperFirst <S extends string> (string_: S): Capitalize<S> {
+  return (!string_ ? "" : string_[0].toUpperCase() + string_.slice(1)) as Capitalize<S>;
 }
 
-export function lowerFirst <S extends string> (str: S): Uncapitalize<S> {
-  return (!str ? '' : str[0].toLowerCase() + str.substring(1)) as Uncapitalize<S>
+export function lowerFirst <S extends string> (string_: S): Uncapitalize<S> {
+  return (!string_ ? "" : string_[0].toLowerCase() + string_.slice(1)) as Uncapitalize<S>;
 }
 
 /* eslint-disable no-redeclare */
-export function pascalCase (): ''
-export function pascalCase <T extends string | readonly string[]> (str: T): PascalCase<T>
-export function pascalCase <T extends string | readonly string[]> (str?: T) {
-  return !str
-    ? ''
-    : (Array.isArray(str) ? str : splitByCase(str as string))
+export function pascalCase (): ""
+export function pascalCase <T extends string | readonly string[]> (string_: T): PascalCase<T>
+export function pascalCase <T extends string | readonly string[]> (string_?: T) {
+  return !string_
+    ? ""
+    : (Array.isArray(string_) ? string_ : splitByCase(string_ as string))
       .map(p => upperFirst(p))
-      .join('') as PascalCase<T>
+      .join("") as PascalCase<T>;
 }
 /* eslint-enable no-redeclare */
 
 /* eslint-disable no-redeclare */
-export function camelCase (): ''
-export function camelCase <T extends string | readonly string[]> (str: T): CamelCase<T>
-export function camelCase <T extends string | readonly string[]> (str?: T) {
-  return lowerFirst(pascalCase(str)) as CamelCase<T>
+export function camelCase (): ""
+export function camelCase <T extends string | readonly string[]> (string_: T): CamelCase<T>
+export function camelCase <T extends string | readonly string[]> (string_?: T) {
+  return lowerFirst(pascalCase(string_)) as CamelCase<T>;
 }
 /* eslint-enable no-redeclare */
 
 /* eslint-disable no-redeclare */
-export function kebabCase (): ''
-export function kebabCase <T extends string | readonly string[]> (str: T): JoinByCase<T, '-'>
-export function kebabCase <T extends string | readonly string[], Joiner extends string> (str: T, joiner: Joiner): JoinByCase<T, Joiner>
-export function kebabCase <T extends string | readonly string[], Joiner extends string> (str?: T, joiner?: Joiner) {
-  return !str
-    ? ''
-    : (Array.isArray(str) ? str : splitByCase(str as string))
+export function kebabCase (): ""
+export function kebabCase <T extends string | readonly string[]> (string_: T): JoinByCase<T, "-">
+export function kebabCase <T extends string | readonly string[], Joiner extends string> (string_: T, joiner: Joiner): JoinByCase<T, Joiner>
+export function kebabCase <T extends string | readonly string[], Joiner extends string> (string_?: T, joiner?: Joiner) {
+  return !string_
+    ? ""
+    : (Array.isArray(string_) ? string_ : splitByCase(string_ as string))
       .map(p => p.toLowerCase())
-      .join(joiner ?? '-') as JoinByCase<T, Joiner>
+      .join(joiner ?? "-") as JoinByCase<T, Joiner>;
 }
 /* eslint-enable no-redeclare */
 
 /* eslint-disable no-redeclare */
-export function snakeCase (): ''
-export function snakeCase <T extends string | readonly string[]> (str: T): JoinByCase<T, '_'>
-export function snakeCase <T extends string | readonly string[]> (str?: T) {
-  return kebabCase(str, '_') as JoinByCase<T, '_'>
+export function snakeCase (): ""
+export function snakeCase <T extends string | readonly string[]> (string_: T): JoinByCase<T, "_">
+export function snakeCase <T extends string | readonly string[]> (string_?: T) {
+  return kebabCase(string_, "_") as JoinByCase<T, "_">;
 }
 /* eslint-enable no-redeclare */
