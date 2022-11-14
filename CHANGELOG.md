@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/unjs/scule/compare/v0.3.2...v1.0.0) (2022-11-14)
+
+
+### Features
+
+* better type supports ([#20](https://github.com/unjs/scule/issues/20)) ([236fae0](https://github.com/unjs/scule/commit/236fae020482850b165bd93401729b83c1738460))
+
 ### [0.3.2](https://github.com/unjs/scule/compare/v0.3.1...v0.3.2) (2022-07-27)
 
 
