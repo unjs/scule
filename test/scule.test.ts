@@ -25,6 +25,7 @@ describe('splitByCase', () => {
 
 describe('pascalCase', () => {
   test.each([
+    ['', ''],
     ['foo', 'Foo'],
     ['foo-bAr', 'FooBAr'],
     ['FooBARb', 'FooBARb'],
@@ -45,6 +46,7 @@ describe('camelCase', () => {
 
 describe('kebabCase', () => {
   test.each([
+    ['', ''],
     ['foo', 'foo'],
     ['foo/Bar', 'foo-bar'],
     ['foo-bAr', 'foo-b-ar'],
