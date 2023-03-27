@@ -16,8 +16,12 @@ export function isUppercase(input = ""): boolean | undefined {
   return input.toUpperCase() === input;
 }
 
+export function splitByCase<T extends string>(input: T): SplitByCase<T>;
+export function splitByCase<
+  T extends string,
+  Separator extends readonly string[]
+>(input: T, separators: Separator): SplitByCase<T, Separator[number]>;
 /**
- * @untyped
  * A function that takes a string and returns an array of strings.
  * - Splits string by the splitters provided (default: ['-', '_', '/', '.'])
  * - Splits when case changes from lower to upper or upper to lower
@@ -25,11 +29,6 @@ export function isUppercase(input = ""): boolean | undefined {
  * - Case is preserved in returned value
  * - Is an irreversible function since splitters are omitted
  */
-export function splitByCase<T extends string>(input: T): SplitByCase<T>;
-export function splitByCase<
-  T extends string,
-  Separator extends readonly string[]
->(input: T, separators: Separator): SplitByCase<T, Separator[number]>;
 export function splitByCase<
   T extends string,
   Separator extends readonly string[]
@@ -110,6 +109,10 @@ export function lowerFirst<S extends string>(input: S): Uncapitalize<S> {
   ) as Uncapitalize<S>;
 }
 
+export function pascalCase(): "";
+export function pascalCase<T extends string | readonly string[]>(
+  input: T
+): PascalCase<T>;
 /**
  * Splits string and joins by PascalCase convention (`foo-bar` => `FooBar`)
  *
@@ -118,10 +121,6 @@ export function lowerFirst<S extends string>(input: S): Uncapitalize<S> {
  * @param {string} [input] - The string to convert to PascalCase.
  * @returns A string
  */
-export function pascalCase(): "";
-export function pascalCase<T extends string | readonly string[]>(
-  input: T
-): PascalCase<T>;
 export function pascalCase<T extends string | readonly string[]>(input?: T) {
   return !input
     ? ""
@@ -130,20 +129,28 @@ export function pascalCase<T extends string | readonly string[]>(input?: T) {
         .join("") as PascalCase<T>);
 }
 
+export function camelCase(): "";
+export function camelCase<T extends string | readonly string[]>(
+  input: T
+): CamelCase<T>;
 /**
  * Splits string and joins by camelCase convention (`foo-bar` => `fooBar`)
  *
  * @param {string} [input] - The string to convert to camel case.
  * @returns A string or an array of strings.
  */
-export function camelCase(): "";
-export function camelCase<T extends string | readonly string[]>(
-  input: T
-): CamelCase<T>;
 export function camelCase<T extends string | readonly string[]>(input?: T) {
   return lowerFirst(pascalCase(input || "")) as CamelCase<T>;
 }
 
+export function kebabCase(): "";
+export function kebabCase<T extends string | readonly string[]>(
+  input: T
+): JoinByCase<T, "-">;
+export function kebabCase<
+  T extends string | readonly string[],
+  Joiner extends string
+>(input: T, joiner: Joiner): JoinByCase<T, Joiner>;
 /**
  * Splits string and joins by kebab-case convention (`fooBar` => `foo-bar`)
  *
@@ -153,14 +160,6 @@ export function camelCase<T extends string | readonly string[]>(input?: T) {
  * @param {Joiner} [joiner] - The string to join the parts of the string with.
  * @returns A string
  */
-export function kebabCase(): "";
-export function kebabCase<T extends string | readonly string[]>(
-  input: T
-): JoinByCase<T, "-">;
-export function kebabCase<
-  T extends string | readonly string[],
-  Joiner extends string
->(input: T, joiner: Joiner): JoinByCase<T, Joiner>;
 export function kebabCase<
   T extends string | readonly string[],
   Joiner extends string
@@ -172,16 +171,16 @@ export function kebabCase<
         .join(joiner ?? "-") as JoinByCase<T, Joiner>);
 }
 
+export function snakeCase(): "";
+export function snakeCase<T extends string | readonly string[]>(
+  input: T
+): JoinByCase<T, "_">;
 /**
  * Splits string and joins by snake_case convention (`foo-bar` => `foo_bar`)
  *
  * @param {string} [input] - The string to convert to snake case.
  * @returns A string or an array of strings.
  */
-export function snakeCase(): "";
-export function snakeCase<T extends string | readonly string[]>(
-  input: T
-): JoinByCase<T, "_">;
 export function snakeCase<T extends string | readonly string[]>(input?: T) {
   return kebabCase(input || "", "_") as JoinByCase<T, "_">;
 }

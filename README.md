@@ -34,75 +34,85 @@ import { pascalCase } from "scule";
 
 <!-- MKDOCS_START-->
 
-#### `camelCase`
-- **Type**: `function`
+### `camelCase`
+
+Splits string and joins by camelCase convention (`foo-bar` => `fooBar`)
 
 ```ts
-(input?: T) => any
+import { camelCase } from "scule"
+
+camelCase (input)
 ```
 
+### `isUppercase`
 
-#### `isUppercase`
-- **Type**: `function`
-
-> If the character is a number, return undefined, otherwise return whether the character is uppercase.
+If the character is a number, return undefined, otherwise return whether the character is uppercase.
 
 ```ts
-(input: string) => any
+import { isUppercase } from "scule"
+
+isUppercase (input)
 ```
 
+### `kebabCase`
 
-#### `kebabCase`
-- **Type**: `function`
+Splits string and joins by kebab-case convention (`fooBar` => `foo-bar`)
 
 ```ts
-(input?: T, joiner?: Joiner) => any
+import { kebabCase } from "scule"
+
+kebabCase (input, joiner)
 ```
 
+### `lowerFirst`
 
-#### `lowerFirst`
-- **Type**: `function`
-
-> Converts first character to lower case
+Converts first character to lower case
 
 ```ts
-(input: S) => any
+import { lowerFirst } from "scule"
+
+lowerFirst (input)
 ```
 
+### `pascalCase`
 
-#### `pascalCase`
-- **Type**: `function`
+Splits string and joins by PascalCase convention (`foo-bar` => `FooBar`)
 
 ```ts
-(input?: T) => any
+import { pascalCase } from "scule"
+
+pascalCase (input)
 ```
 
+### `snakeCase`
 
-#### `snakeCase`
-- **Type**: `function`
+Splits string and joins by snake_case convention (`foo-bar` => `foo_bar`)
 
 ```ts
-(input?: T) => any
+import { snakeCase } from "scule"
+
+snakeCase (input)
 ```
 
+### `splitByCase`
 
-#### `splitByCase`
-- **Type**: `function`
+A function that takes a string and returns an array of strings. - Splits string by the splitters provided (default: ['-', '_', '/', '.']) - Splits when case changes from lower to upper or upper to lower - Ignores numbers for case changes - Case is preserved in returned value - Is an irreversible function since splitters are omitted
 
 ```ts
-(input: T, separators?: Separator) => any
+import { splitByCase } from "scule"
+
+splitByCase (input, separators)
 ```
 
+### `upperFirst`
 
-#### `upperFirst`
-- **Type**: `function`
-
-> Converts first character to upper case
+Converts first character to upper case
 
 ```ts
-(input: string) => any
-```
+import { upperFirst } from "scule"
 
+upperFirst (input)
+```
 <!-- MKDOCS_END -->
 
 ## Development
