@@ -22,55 +22,88 @@ Import:
 
 ```js
 // CommonJS
-const { pascalCase } = require('scule')
+const { pascalCase } = require("scule");
 
 // ESM
-import { pascalCase } from 'scule'
+import { pascalCase } from "scule";
 ```
 
 **Notice:** You may need to transpile package for legacy environments
 
 ## Utils
 
-### `pascalCase(str)`
+<!-- MKDOCS_START-->
 
-Splits string and joins by PascalCase convention (`foo-bar` => `FooBar`)
+#### `camelCase`
+- **Type**: `function`
 
-**Remarks:**
+```ts
+(input?: T) => any
+```
 
-- If an uppercase letter is followed by other uppercase letters (like `FooBAR`), they are preserved
 
-### `camelCase`
+#### `isUppercase`
+- **Type**: `function`
 
-Splits string and joins by camelCase convention (`foo-bar` => `fooBar`)
+> If the character is a number, return undefined, otherwise return whether the character is uppercase.
 
-### `kebabCase(str)`
+```ts
+(input: string) => any
+```
 
-Splits string and joins by kebab-case convention (`fooBar` => `foo-bar`)
 
-**Remarks:**
+#### `kebabCase`
+- **Type**: `function`
 
-- It does **not** preserve case
+```ts
+(input?: T, joiner?: Joiner) => any
+```
 
-### `snakeCase`
 
-Splits string and joins by snake_case convention (`foo-bar` => `foo_bar`)
+#### `lowerFirst`
+- **Type**: `function`
 
-### `upperFirst(str)`
+> Converts first character to lower case
 
-Converts first character to upper case
+```ts
+(input: S) => any
+```
 
-### `lowerFirst(str)`
 
-Converts first character to lower case
+#### `pascalCase`
+- **Type**: `function`
 
-### `splitByCase(str, splitters?)`
+```ts
+(input?: T) => any
+```
 
-- Splits string by the splitters provided (default: `['-', '_', '/', '.']`)
-- Splits when case changes from lower to upper or upper to lower
-- Ignores numbers for case changes
-- Case is preserved in returned value
-- Is an irreversible function since splitters are omitted
+
+#### `snakeCase`
+- **Type**: `function`
+
+```ts
+(input?: T) => any
+```
+
+
+#### `splitByCase`
+- **Type**: `function`
+
+```ts
+(input: T, separators?: Separator) => any
+```
+
+
+#### `upperFirst`
+- **Type**: `function`
+
+> Converts first character to upper case
+
+```ts
+(input: string) => any
+```
+
+<!-- MKDOCS_END -->
 
 ## Development
 
@@ -85,17 +118,14 @@ Converts first character to lower case
 [MIT](./LICENSE)
 
 <!-- Badges -->
+
 [npm-version-src]: https://img.shields.io/npm/v/scule?style=flat-square
 [npm-version-href]: https://npmjs.com/package/scule
-
 [npm-downloads-src]: https://img.shields.io/npm/dm/scule?style=flat-square
 [npm-downloads-href]: https://npmjs.com/package/scule
-
 [github-actions-src]: https://img.shields.io/github/workflow/status/unjs/scule/ci/main?style=flat-square
 [github-actions-href]: https://github.com/unjs/scule/actions?query=workflow%3Aci
-
 [codecov-src]: https://img.shields.io/codecov/c/gh/unjs/scule/main?style=flat-square
 [codecov-href]: https://codecov.io/gh/unjs/scule
-
 [bundle-src]: https://img.shields.io/bundlephobia/minzip/scule?style=flat-square
 [bundle-href]: https://bundlephobia.com/result?p=scule
