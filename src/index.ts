@@ -23,10 +23,15 @@ export function splitByCase<
 >(input: T, separators: Separator): SplitByCase<T, Separator[number]>;
 /**
  * A function that takes a string and returns an array of strings.
+ *
  * - Splits string by the splitters provided (default: ['-', '_', '/', '.'])
+ *
  * - Splits when case changes from lower to upper or upper to lower
+ *
  * - Ignores numbers for case changes
+ *
  * - Case is preserved in returned value
+ *
  * - Is an irreversible function since splitters are omitted
  */
 export function splitByCase<

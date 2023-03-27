@@ -96,7 +96,14 @@ snakeCase (input)
 
 ### `splitByCase`
 
-A function that takes a string and returns an array of strings. - Splits string by the splitters provided (default: ['-', '_', '/', '.']) - Splits when case changes from lower to upper or upper to lower - Ignores numbers for case changes - Case is preserved in returned value - Is an irreversible function since splitters are omitted
+A function that takes a string and returns an array of strings.
+
+
+- Splits string by the splitters provided (default: ['-', '_', '/', '.'])
+- Splits when case changes from lower to upper or upper to lower
+- Ignores numbers for case changes
+- Case is preserved in returned value
+- Is an irreversible function since splitters are omitted
 
 ```ts
 import { splitByCase } from "scule"

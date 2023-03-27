@@ -1,13 +1,19 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { loadSchema } from "untyped/loader";
 import type { Schema } from "untyped";
-import { genFunctionType } from "untyped";
 
 const MKDOCS_RE = /<!-- MKDOCS_START-->.*<!-- MKDOCS_END -->/s;
 const MKDOCS_TAGS = ["<!-- MKDOCS_START-->", "<!-- MKDOCS_END -->"];
 
 async function main() {
   const schema = await loadSchema("./src", {});
+
+  await writeFile(
+    "dist/schema.json",
+    JSON.stringify(schema, undefined, 2),
+    "utf8"
+  );
+
   const generatedDocs = await generateMarkdown(schema, {
     initialLevel: 3,
   });
