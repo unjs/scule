@@ -1,8 +1,4 @@
 {
-  "extends": [
-    "eslint-config-unjs"
-  ],
-  "rules": {
-    "no-redeclare": "off"
-  }
+  "extends": ["eslint-config-unjs"],
+  "rules": {}
 }

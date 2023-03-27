@@ -72,6 +72,14 @@ Converts first character to lower case
 - Case is preserved in returned value
 - Is an irreversible function since splitters are omitted
 
+## Development
+
+- Clone this repository
+- Install latest LTS version of [Node.js](https://nodejs.org/en/)
+- Enable [Corepack](https://github.com/nodejs/corepack) using corepack enable
+- Install dependencies using pnpm install
+- Run interactive tests using pnpm dev
+
 ## License
 
 [MIT](./LICENSE)
