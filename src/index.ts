@@ -1,7 +1,7 @@
 import { CamelCase, JoinByCase, PascalCase, SplitByCase } from "./types";
 
 const NUMBER_CHAR_RE = /\d/;
-const STR_SPLITTERS = ["-", "_", "/", "."] as const;
+const STR_SPLITTERS = ["-", "_", "/", "."," "] as const;
 
 export function isUppercase(char = ""): boolean | undefined {
   if (NUMBER_CHAR_RE.test(char)) {
