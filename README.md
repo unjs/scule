@@ -2,9 +2,8 @@
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
-[![Github Actions][github-actions-src]][github-actions-href]
-[![Codecov][codecov-src]][codecov-href]
 [![bundle][bundle-src]][bundle-href]
+[![Codecov][codecov-src]][codecov-href]
 
 <!-- ![](.github/banner.svg) -->
 
@@ -14,8 +13,6 @@ Install using npm or yarn:
 
 ```bash
 npm i scule
-# or
-yarn add scule
 ```
 
 Import:
@@ -28,41 +25,67 @@ const { pascalCase } = require('scule')
 import { pascalCase } from 'scule'
 ```
 
-**Notice:** You may need to transpile package for legacy environments
+**Notice:** You may need to transpile package for legacy environments.
 
 ## Utils
 
 ### `pascalCase(str)`
 
-Splits string and joins by PascalCase convention (`foo-bar` => `FooBar`)
+Splits string and joins by PascalCase convention:
 
-**Remarks:**
+```ts
+pascalCase('foo-bar_baz')
+// FooBarBaz
+```
 
-- If an uppercase letter is followed by other uppercase letters (like `FooBAR`), they are preserved
+**Notice:** If an uppercase letter is followed by other uppercase letters (like `FooBAR`), they are preserved.
 
 ### `camelCase`
 
-Splits string and joins by camelCase convention (`foo-bar` => `fooBar`)
+Splits string and joins by camelCase convention:
+
+```ts
+camelCase('foo-bar_baz')
+// fooBarBaz
+```
 
 ### `kebabCase(str)`
 
-Splits string and joins by kebab-case convention (`fooBar` => `foo-bar`)
+Splits string and joins by kebab-case convention:
 
-**Remarks:**
+```ts
+kebabCase('fooBar_Baz')
+// foo-bar-baz
+```
 
-- It does **not** preserve case
+**Notice:** It does **not** preserve case.
 
 ### `snakeCase`
 
-Splits string and joins by snake_case convention (`foo-bar` => `foo_bar`)
+Splits string and joins by snake_case convention:
+
+```ts
+snakeCase('foo-barBaz')
+// foo_bar_baz
+```
 
 ### `upperFirst(str)`
 
-Converts first character to upper case
+Converts first character to upper case:
+
+```ts
+upperFirst('hello world!')
+// Hello world!
+```
 
 ### `lowerFirst(str)`
 
-Converts first character to lower case
+Converts first character to lower case:
+
+```ts
+lowerFirst('Hello world!')
+// hello world!
+```
 
 ### `splitByCase(str, splitters?)`
 
@@ -85,17 +108,11 @@ Converts first character to lower case
 [MIT](./LICENSE)
 
 <!-- Badges -->
-[npm-version-src]: https://img.shields.io/npm/v/scule?style=flat-square
+[npm-version-src]: https://img.shields.io/npm/v/scule?style=flat&colorA=18181B&colorB=F0DB4F
 [npm-version-href]: https://npmjs.com/package/scule
-
-[npm-downloads-src]: https://img.shields.io/npm/dm/scule?style=flat-square
+[npm-downloads-src]: https://img.shields.io/npm/dm/scule?style=flat&colorA=18181B&colorB=F0DB4F
 [npm-downloads-href]: https://npmjs.com/package/scule
-
-[github-actions-src]: https://img.shields.io/github/workflow/status/unjs/scule/ci/main?style=flat-square
-[github-actions-href]: https://github.com/unjs/scule/actions?query=workflow%3Aci
-
-[codecov-src]: https://img.shields.io/codecov/c/gh/unjs/scule/main?style=flat-square
+[codecov-src]: https://img.shields.io/codecov/c/gh/unjs/scule/main?style=flat&colorA=18181B&colorB=F0DB4F
 [codecov-href]: https://codecov.io/gh/unjs/scule
-
-[bundle-src]: https://img.shields.io/bundlephobia/minzip/scule?style=flat-square
+[bundle-src]: https://img.shields.io/bundlephobia/minzip/scule?style=flat&colorA=18181B&colorB=F0DB4F
 [bundle-href]: https://bundlephobia.com/result?p=scule
