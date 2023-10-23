@@ -1,5 +1,7 @@
 import { CamelCase, JoinByCase, PascalCase, SplitByCase } from "./types";
 
+export type { CamelCase, JoinByCase, PascalCase, SplitByCase };
+
 const NUMBER_CHAR_RE = /\d/;
 const STR_SPLITTERS = ["-", "_", "/", "."] as const;
 
