@@ -5,7 +5,7 @@ specifiers:
   '@vitest/coverage-c8': ^0.31.0
   eslint: ^8.39.0
   eslint-config-unjs: ^0.1.0
-  prettier: ^2.8.8
+  prettier: ^3.1.0
   typescript: ^5.0.4
   unbuild: ^1.2.1
   vitest: ^0.31.0
@@ -15,7 +15,7 @@ devDependencies:
   '@vitest/coverage-c8': 0.31.0_vitest@0.31.0
   eslint: 8.39.0
   eslint-config-unjs: 0.1.0_iacogk7kkaymxepzhgcbytyi7q
-  prettier: 2.8.8
+  prettier: 3.1.0
   typescript: 5.0.4
   unbuild: 1.2.1
   vitest: 0.31.0
@@ -2762,9 +2762,9 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier/2.8.8:
-    resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
-    engines: {node: '>=10.13.0'}
+  /prettier/3.1.0:
+    resolution: {integrity: sha512-TQLvXjq5IAibjh8EpBIkNKxO749UEWABoiIZehEPiY4GNpVdhaFKqSTu+QrlU6D2dPAfubRmtJTi4K4YkQ5eXw==}
+    engines: {node: '>=14'}
     hasBin: true
     dev: true
 
