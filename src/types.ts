@@ -92,7 +92,7 @@ export type SplitByCase<
         : string[]
       : Accumulator;
 
-type JoinByCase<T, Joiner extends string> = string extends T
+export type JoinByCase<T, Joiner extends string> = string extends T
   ? string
   : string[] extends T
     ? string
