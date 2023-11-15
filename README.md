@@ -19,10 +19,10 @@ Import:
 
 ```js
 // CommonJS
-const { pascalCase } = require('scule')
+const { pascalCase } = require("scule");
 
 // ESM
-import { pascalCase } from 'scule'
+import { pascalCase } from "scule";
 ```
 
 **Notice:** You may need to transpile package for legacy environments.
@@ -34,7 +34,7 @@ import { pascalCase } from 'scule'
 Splits string and joins by PascalCase convention:
 
 ```ts
-pascalCase('foo-bar_baz')
+pascalCase("foo-bar_baz");
 // FooBarBaz
 ```
 
@@ -45,7 +45,7 @@ pascalCase('foo-bar_baz')
 Splits string and joins by camelCase convention:
 
 ```ts
-camelCase('foo-bar_baz')
+camelCase("foo-bar_baz");
 // fooBarBaz
 ```
 
@@ -54,7 +54,7 @@ camelCase('foo-bar_baz')
 Splits string and joins by kebab-case convention:
 
 ```ts
-kebabCase('fooBar_Baz')
+kebabCase("fooBar_Baz");
 // foo-bar-baz
 ```
 
@@ -65,7 +65,7 @@ kebabCase('fooBar_Baz')
 Splits string and joins by snake_case convention:
 
 ```ts
-snakeCase('foo-barBaz')
+snakeCase("foo-barBaz");
 // foo_bar_baz
 ```
 
@@ -74,7 +74,7 @@ snakeCase('foo-barBaz')
 Converts first character to upper case:
 
 ```ts
-upperFirst('hello world!')
+upperFirst("hello world!");
 // Hello world!
 ```
 
@@ -83,7 +83,7 @@ upperFirst('hello world!')
 Converts first character to lower case:
 
 ```ts
-lowerFirst('Hello world!')
+lowerFirst("Hello world!");
 // hello world!
 ```
 
@@ -108,6 +108,7 @@ lowerFirst('Hello world!')
 [MIT](./LICENSE)
 
 <!-- Badges -->
+
 [npm-version-src]: https://img.shields.io/npm/v/scule?style=flat&colorA=18181B&colorB=F0DB4F
 [npm-version-href]: https://npmjs.com/package/scule
 [npm-downloads-src]: https://img.shields.io/npm/dm/scule?style=flat&colorA=18181B&colorB=F0DB4F
