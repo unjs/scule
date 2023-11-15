@@ -92,7 +92,7 @@ export function pascalCase<T extends string | readonly string[]>(
 export function pascalCase<T extends string | readonly string[]>(str?: T) {
   return str
     ? ((Array.isArray(str) ? str : splitByCase(str as string))
-        .map((p) => upperFirst(p))
+        .map((p) => upperFirst(p.toLowerCase()))
         .join("") as PascalCase<T>)
     : "";
 }
