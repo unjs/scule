@@ -58,7 +58,7 @@ export function splitByCase<
       }
       // Case falling edge
       if (previousUpper === true && isUpper === false && buff.length > 1) {
-        const lastChar = buff[buff.length - 1];
+        const lastChar = buff.at(-1);
         parts.push(buff.slice(0, Math.max(0, buff.length - 1)));
         buff = lastChar + char;
         previousUpper = isUpper;
@@ -79,13 +79,13 @@ export function splitByCase<
 
 export function upperFirst<S extends string>(string_: S): Capitalize<S> {
   return (
-    !string_ ? "" : string_[0].toUpperCase() + string_.slice(1)
+    string_ ? string_[0].toUpperCase() + string_.slice(1) : ""
   ) as Capitalize<S>;
 }
 
 export function lowerFirst<S extends string>(string_: S): Uncapitalize<S> {
   return (
-    !string_ ? "" : string_[0].toLowerCase() + string_.slice(1)
+    string_ ? string_[0].toLowerCase() + string_.slice(1) : ""
   ) as Uncapitalize<S>;
 }
 
@@ -94,11 +94,11 @@ export function pascalCase<T extends string | readonly string[]>(
   string_: T
 ): PascalCase<T>;
 export function pascalCase<T extends string | readonly string[]>(string_?: T) {
-  return !string_
-    ? ""
-    : ((Array.isArray(string_) ? string_ : splitByCase(string_ as string))
+  return string_
+    ? ((Array.isArray(string_) ? string_ : splitByCase(string_ as string))
         .map((p) => upperFirst(p))
-        .join("") as PascalCase<T>);
+        .join("") as PascalCase<T>)
+    : "";
 }
 
 export function camelCase(): "";
@@ -121,11 +121,11 @@ export function kebabCase<
   T extends string | readonly string[],
   Joiner extends string
 >(string_?: T, joiner?: Joiner) {
-  return !string_
-    ? ""
-    : ((Array.isArray(string_) ? string_ : splitByCase(string_ as string))
+  return string_
+    ? ((Array.isArray(string_) ? string_ : splitByCase(string_ as string))
         .map((p) => p.toLowerCase())
-        .join(joiner ?? "-") as KebabCase<T, Joiner>);
+        .join(joiner ?? "-") as KebabCase<T, Joiner>)
+    : "";
 }
 
 export function snakeCase(): "";
