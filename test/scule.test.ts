@@ -52,7 +52,10 @@ describe("pascalCase", () => {
 });
 
 describe("camelCase", () => {
-  test.each([["FooBarBaz", "fooBarBaz"], ["FOO_BAR", "fooBar"],])("%s => %s", (input, expected) => {
+  test.each([
+    ["FooBarBaz", "fooBarBaz"],
+    ["FOO_BAR", "fooBar"],
+  ])("%s => %s", (input, expected) => {
     expect(camelCase(input)).toMatchObject(expected);
   });
 });
@@ -73,7 +76,10 @@ describe("kebabCase", () => {
 });
 
 describe("snakeCase", () => {
-  test.each([["FooBarBaz", "foo_bar_baz"], ["FOO_BAR", "foo_bar"],])("%s => %s", (input, expected) => {
+  test.each([
+    ["FooBarBaz", "foo_bar_baz"],
+    ["FOO_BAR", "foo_bar"],
+  ])("%s => %s", (input, expected) => {
     expect(snakeCase(input)).toMatchObject(expected);
   });
 });
