@@ -52,7 +52,7 @@ describe("PascalCase", () => {
   test("array", () => {
     assertType<PascalCase<["foo", "Bar"]>>("FooBar");
     assertType<PascalCase<["foo", "Bar", "fuzz", "FI", "Zz"]>>(
-      "FooBarFuzzFIZz"
+      "FooBarFuzzFIZz",
     );
   });
 });
