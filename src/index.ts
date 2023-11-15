@@ -19,11 +19,11 @@ export function isUppercase(char = ""): boolean | undefined {
 export function splitByCase<T extends string>(string_: T): SplitByCase<T>;
 export function splitByCase<
   T extends string,
-  Separator extends readonly string[]
+  Separator extends readonly string[],
 >(string_: T, separators: Separator): SplitByCase<T, Separator[number]>;
 export function splitByCase<
   T extends string,
-  Separator extends readonly string[]
+  Separator extends readonly string[],
 >(string_: T, separators?: Separator) {
   const splitters = separators ?? STR_SPLITTERS;
   const parts: string[] = [];
@@ -91,7 +91,7 @@ export function lowerFirst<S extends string>(string_: S): Uncapitalize<S> {
 
 export function pascalCase(): "";
 export function pascalCase<T extends string | readonly string[]>(
-  string_: T
+  string_: T,
 ): PascalCase<T>;
 export function pascalCase<T extends string | readonly string[]>(string_?: T) {
   return string_
@@ -103,7 +103,7 @@ export function pascalCase<T extends string | readonly string[]>(string_?: T) {
 
 export function camelCase(): "";
 export function camelCase<T extends string | readonly string[]>(
-  string_: T
+  string_: T,
 ): CamelCase<T>;
 export function camelCase<T extends string | readonly string[]>(string_?: T) {
   return lowerFirst(pascalCase(string_ || "")) as CamelCase<T>;
@@ -111,15 +111,15 @@ export function camelCase<T extends string | readonly string[]>(string_?: T) {
 
 export function kebabCase(): "";
 export function kebabCase<T extends string | readonly string[]>(
-  string_: T
+  string_: T,
 ): KebabCase<T>;
 export function kebabCase<
   T extends string | readonly string[],
-  Joiner extends string
+  Joiner extends string,
 >(string_: T, joiner: Joiner): KebabCase<T, Joiner>;
 export function kebabCase<
   T extends string | readonly string[],
-  Joiner extends string
+  Joiner extends string,
 >(string_?: T, joiner?: Joiner) {
   return string_
     ? ((Array.isArray(string_) ? string_ : splitByCase(string_ as string))
@@ -130,7 +130,7 @@ export function kebabCase<
 
 export function snakeCase(): "";
 export function snakeCase<T extends string | readonly string[]>(
-  string_: T
+  string_: T,
 ): SnakeCase<T>;
 export function snakeCase<T extends string | readonly string[]>(string_?: T) {
   return kebabCase(string_ || "", "_") as SnakeCase<T>;

@@ -102,14 +102,14 @@ export type SplitByCase<
 type JoinByCase<T, Joiner extends string> = string extends T
   ? string
   : string[] extends T
-  ? string
-  : T extends string
-  ? SplitByCase<T> extends readonly string[]
-    ? JoinLowercaseWords<SplitByCase<T>, Joiner>
-    : never
-  : T extends readonly string[]
-  ? JoinLowercaseWords<T, Joiner>
-  : never;
+    ? string
+    : T extends string
+      ? SplitByCase<T> extends readonly string[]
+        ? JoinLowercaseWords<SplitByCase<T>, Joiner>
+        : never
+      : T extends readonly string[]
+        ? JoinLowercaseWords<T, Joiner>
+        : never;
 
 export type PascalCase<T> = string extends T
   ? string
@@ -129,10 +129,9 @@ export type CamelCase<T> = string extends T
     ? string
     : Uncapitalize<PascalCase<T>>;
 
-
 export type KebabCase<
   T extends string | readonly string[],
-  Joiner extends string = "-"
+  Joiner extends string = "-",
 > = JoinByCase<T, Joiner>;
 
 export type SnakeCase<T extends string | readonly string[]> = JoinByCase<
