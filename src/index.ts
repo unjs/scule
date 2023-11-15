@@ -1,4 +1,10 @@
-import { CamelCase, JoinByCase, PascalCase, SplitByCase } from "./types";
+import type {
+  CamelCase,
+  KebabCase,
+  PascalCase,
+  SnakeCase,
+  SplitByCase,
+} from "./types";
 
 const NUMBER_CHAR_RE = /\d/;
 const STR_SPLITTERS = ["-", "_", "/", "."] as const;
@@ -106,11 +112,11 @@ export function camelCase<T extends string | readonly string[]>(string_?: T) {
 export function kebabCase(): "";
 export function kebabCase<T extends string | readonly string[]>(
   string_: T,
-): JoinByCase<T, "-">;
+): KebabCase<T>;
 export function kebabCase<
   T extends string | readonly string[],
   Joiner extends string,
->(string_: T, joiner: Joiner): JoinByCase<T, Joiner>;
+>(string_: T, joiner: Joiner): KebabCase<T, Joiner>;
 export function kebabCase<
   T extends string | readonly string[],
   Joiner extends string,
@@ -118,14 +124,16 @@ export function kebabCase<
   return string_
     ? ((Array.isArray(string_) ? string_ : splitByCase(string_ as string))
         .map((p) => p.toLowerCase())
-        .join(joiner ?? "-") as JoinByCase<T, Joiner>)
+        .join(joiner ?? "-") as KebabCase<T, Joiner>)
     : "";
 }
 
 export function snakeCase(): "";
 export function snakeCase<T extends string | readonly string[]>(
   string_: T,
-): JoinByCase<T, "_">;
+): SnakeCase<T>;
 export function snakeCase<T extends string | readonly string[]>(string_?: T) {
-  return kebabCase(string_ || "", "_") as JoinByCase<T, "_">;
+  return kebabCase(string_ || "", "_") as SnakeCase<T>;
 }
+
+export * from "./types";
