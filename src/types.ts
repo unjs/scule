@@ -19,7 +19,7 @@ type CapitalizedWords<
   T extends readonly string[],
   Accumulator extends string = "",
 > = T extends readonly [infer F extends string, ...infer R extends string[]]
-  ? CapitalizedWords<R, `${Accumulator}${Capitalize<F>}`>
+  ? CapitalizedWords<R, `${Accumulator}${Capitalize<Lowercase<F>>}`>
   : Accumulator;
 type JoinLowercaseWords<
   T extends readonly string[],

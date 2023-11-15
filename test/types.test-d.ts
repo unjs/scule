@@ -21,6 +21,7 @@ describe("SplitByCase", () => {
     assertType<SplitByCase<"fooBARBaz">>(["foo", "BAR", "Baz"]);
     assertType<SplitByCase<"FOOBar">>(["FOO", "Bar"]);
     assertType<SplitByCase<"ALink">>(["A", "Link"]);
+    assertType<SplitByCase<"FOO_BAR">>(["FOO", "BAR"]);
   });
 
   test("custom splitters", () => {
@@ -44,15 +45,16 @@ describe("PascalCase", () => {
     assertType<PascalCase<"">>("");
     assertType<PascalCase<"foo">>("Foo");
     assertType<PascalCase<"foo-bAr">>("FooBAr");
-    assertType<PascalCase<"FooBARb">>("FooBARb");
+    assertType<PascalCase<"FooBARb">>("FooBaRb");
     assertType<PascalCase<"foo_bar-baz/qux">>("FooBarBazQux");
     assertType<PascalCase<"foo--bar-Baz">>("FooBarBaz");
+    assertType<PascalCase<"FOO_BAR">>("FooBar");
   });
 
   test("array", () => {
     assertType<PascalCase<["foo", "Bar"]>>("FooBar");
     assertType<PascalCase<["foo", "Bar", "fuzz", "FI", "Zz"]>>(
-      "FooBarFuzzFIZz",
+      "FooBarFuzzFiZz",
     );
   });
 });
@@ -66,8 +68,9 @@ describe("CamelCase", () => {
   test("string", () => {
     assertType<CamelCase<"">>("");
     assertType<CamelCase<"foo">>("foo");
-    assertType<CamelCase<"FooBARb">>("fooBARb");
+    assertType<CamelCase<"FooBARb">>("fooBaRb");
     assertType<CamelCase<"foo_bar-baz/qux">>("fooBarBazQux");
+    assertType<CamelCase<"FOO_BAR">>("fooBar");
   });
 
   test("array", () => {
