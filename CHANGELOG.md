@@ -2,6 +2,58 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v1.1.0
+
+[compare changes](https://github.com/unjs/scule/compare/v1.0.0...v1.1.0)
+
+### 🚀 Enhancements
+
+- Export type helpers ([#58](https://github.com/unjs/scule/pull/58))
+
+### 🩹 Fixes
+
+- Move types filed to the top ([4fd4a79](https://github.com/unjs/scule/commit/4fd4a79))
+- **pascalCase, camelCase:** Lower rest of each segment ([#62](https://github.com/unjs/scule/pull/62))
+
+### 💅 Refactors
+
+- Simplify string variable name ([abb2d2b](https://github.com/unjs/scule/commit/abb2d2b))
+
+### 📖 Documentation
+
+- Add missing quotation mark ([#41](https://github.com/unjs/scule/pull/41))
+- Improve readme with code examples ([21f19ba](https://github.com/unjs/scule/commit/21f19ba))
+
+### 🏡 Chore
+
+- Update repo ([#42](https://github.com/unjs/scule/pull/42))
+- Update lockfile and typescript ([94bfc58](https://github.com/unjs/scule/commit/94bfc58))
+- Update release script ([a52338f](https://github.com/unjs/scule/commit/a52338f))
+- Update dependencies ([3a5f1a6](https://github.com/unjs/scule/commit/3a5f1a6))
+- Add changelogen dev dependency ([81365b8](https://github.com/unjs/scule/commit/81365b8))
+
+### ✅ Tests
+
+- Convert type tests to vitest syntax ([#61](https://github.com/unjs/scule/pull/61))
+
+### 🎨 Styles
+
+- Lint and format with prettier v3 ([ba39ce6](https://github.com/unjs/scule/commit/ba39ce6))
+
+### 🤖 CI
+
+- Update actions ([1f95350](https://github.com/unjs/scule/commit/1f95350))
+- Add autofix ci ([8a7a4b3](https://github.com/unjs/scule/commit/8a7a4b3))
+
+### ❤️ Contributors
+
+- Pooya Parsa ([@pi0](http://github.com/pi0))
+- Luke Nelson <luke@nelson.zone>
+- Daniel Roe ([@danielroe](http://github.com/danielroe))
+- Sébastien Chopin <seb@nuxtlabs.com>
+- Nozomu Ikuta 
+- XLor <yjl9903@vip.qq.com>
+
 ## [1.0.0](https://github.com/unjs/scule/compare/v0.3.2...v1.0.0) (2022-11-14)
 
 
