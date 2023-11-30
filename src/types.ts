@@ -115,7 +115,7 @@ export type JoinByCase<T, Joiner extends string> = string extends T
 
 export type PascalCase<
   T,
-  Normalize extends boolean | undefined,
+  Normalize extends boolean | undefined = false,
 > = string extends T
   ? string
   : string[] extends T
@@ -130,7 +130,7 @@ export type PascalCase<
 
 export type CamelCase<
   T,
-  Normalize extends boolean | undefined,
+  Normalize extends boolean | undefined = false,
 > = string extends T
   ? string
   : string[] extends T
