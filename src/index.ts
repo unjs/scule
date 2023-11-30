@@ -87,31 +87,34 @@ export function lowerFirst<S extends string>(str: S): Uncapitalize<S> {
 }
 
 export function pascalCase(): "";
-export function pascalCase<T extends string | readonly string[]>(
-  str: T,
-  opts?: CaseOptions,
-): PascalCase<T>;
-export function pascalCase<T extends string | readonly string[]>(
-  str?: T,
-  opts?: CaseOptions,
-) {
+export function pascalCase<
+  T extends string | readonly string[],
+  UserCaseOptions extends CaseOptions = CaseOptions,
+>(str: T, opts?: CaseOptions): PascalCase<T, UserCaseOptions["normalize"]>;
+export function pascalCase<
+  T extends string | readonly string[],
+  UserCaseOptions extends CaseOptions = CaseOptions,
+>(str?: T, opts?: UserCaseOptions) {
   return str
     ? ((Array.isArray(str) ? str : splitByCase(str as string))
         .map((p) => upperFirst(opts?.normalize ? p.toLowerCase() : p))
-        .join("") as PascalCase<T>)
+        .join("") as PascalCase<T, UserCaseOptions["normalize"]>)
     : "";
 }
 
 export function camelCase(): "";
-export function camelCase<T extends string | readonly string[]>(
-  str: T,
-  opts?: CaseOptions,
-): CamelCase<T>;
-export function camelCase<T extends string | readonly string[]>(
-  str?: T,
-  opts?: CaseOptions,
-) {
-  return lowerFirst(pascalCase(str || "", opts)) as CamelCase<T>;
+export function camelCase<
+  T extends string | readonly string[],
+  UserCaseOptions extends CaseOptions = CaseOptions,
+>(str: T, opts?: UserCaseOptions): CamelCase<T, UserCaseOptions["normalize"]>;
+export function camelCase<
+  T extends string | readonly string[],
+  UserCaseOptions extends CaseOptions = CaseOptions,
+>(str?: T, opts?: UserCaseOptions) {
+  return lowerFirst(pascalCase(str || "", opts)) as CamelCase<
+    T,
+    UserCaseOptions["normalize"]
+  >;
 }
 
 export function kebabCase(): "";

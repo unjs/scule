@@ -37,23 +37,23 @@ describe("SplitByCase", () => {
 
 describe("PascalCase", () => {
   test("types", () => {
-    expectTypeOf<PascalCase<string>>().toEqualTypeOf<string>();
-    expectTypeOf<PascalCase<string[]>>().toEqualTypeOf<string>();
+    expectTypeOf<PascalCase<string, true>>().toEqualTypeOf<string>();
+    expectTypeOf<PascalCase<string[], true>>().toEqualTypeOf<string>();
   });
 
   test("string", () => {
-    assertType<PascalCase<"">>("");
-    assertType<PascalCase<"foo">>("Foo");
-    assertType<PascalCase<"foo-bAr">>("FooBAr");
-    assertType<PascalCase<"FooBARb">>("FooBaRb");
-    assertType<PascalCase<"foo_bar-baz/qux">>("FooBarBazQux");
-    assertType<PascalCase<"foo--bar-Baz">>("FooBarBaz");
-    assertType<PascalCase<"FOO_BAR">>("FooBar");
+    assertType<PascalCase<"", true>>("");
+    assertType<PascalCase<"foo", true>>("Foo");
+    assertType<PascalCase<"foo-bAr", true>>("FooBAr");
+    assertType<PascalCase<"FooBARb", true>>("FooBaRb");
+    assertType<PascalCase<"foo_bar-baz/qux", true>>("FooBarBazQux");
+    assertType<PascalCase<"foo--bar-Baz", true>>("FooBarBaz");
+    assertType<PascalCase<"FOO_BAR", true>>("FooBar");
   });
 
   test("array", () => {
-    assertType<PascalCase<["foo", "Bar"]>>("FooBar");
-    assertType<PascalCase<["foo", "Bar", "fuzz", "FI", "Zz"]>>(
+    assertType<PascalCase<["foo", "Bar"], true>>("FooBar");
+    assertType<PascalCase<["foo", "Bar", "fuzz", "FI", "Zz"], true>>(
       "FooBarFuzzFiZz",
     );
   });
@@ -61,20 +61,20 @@ describe("PascalCase", () => {
 
 describe("CamelCase", () => {
   test("types", () => {
-    expectTypeOf<CamelCase<string>>().toEqualTypeOf<string>();
-    expectTypeOf<CamelCase<string[]>>().toEqualTypeOf<string>();
+    expectTypeOf<CamelCase<string, true>>().toEqualTypeOf<string>();
+    expectTypeOf<CamelCase<string[], true>>().toEqualTypeOf<string>();
   });
 
   test("string", () => {
-    assertType<CamelCase<"">>("");
-    assertType<CamelCase<"foo">>("foo");
-    assertType<CamelCase<"FooBARb">>("fooBaRb");
-    assertType<CamelCase<"foo_bar-baz/qux">>("fooBarBazQux");
-    assertType<CamelCase<"FOO_BAR">>("fooBar");
+    assertType<CamelCase<"", true>>("");
+    assertType<CamelCase<"foo", true>>("foo");
+    assertType<CamelCase<"FooBARb", true>>("fooBaRb");
+    assertType<CamelCase<"foo_bar-baz/qux", true>>("fooBarBazQux");
+    assertType<CamelCase<"FOO_BAR", true>>("fooBar");
   });
 
   test("array", () => {
-    assertType<CamelCase<["Foo", "Bar"]>>("fooBar");
+    assertType<CamelCase<["Foo", "Bar"], true>>("fooBar");
   });
 });
 
