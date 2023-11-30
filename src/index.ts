@@ -4,6 +4,7 @@ import type {
   PascalCase,
   SnakeCase,
   SplitByCase,
+  CaseOptions,
 } from "./types";
 
 const NUMBER_CHAR_RE = /\d/;
@@ -86,23 +87,34 @@ export function lowerFirst<S extends string>(str: S): Uncapitalize<S> {
 }
 
 export function pascalCase(): "";
-export function pascalCase<T extends string | readonly string[]>(
-  str: T,
-): PascalCase<T>;
-export function pascalCase<T extends string | readonly string[]>(str?: T) {
+export function pascalCase<
+  T extends string | readonly string[],
+  UserCaseOptions extends CaseOptions = CaseOptions,
+>(str: T, opts?: CaseOptions): PascalCase<T, UserCaseOptions["normalize"]>;
+export function pascalCase<
+  T extends string | readonly string[],
+  UserCaseOptions extends CaseOptions = CaseOptions,
+>(str?: T, opts?: UserCaseOptions) {
   return str
     ? ((Array.isArray(str) ? str : splitByCase(str as string))
-        .map((p) => upperFirst(p.toLowerCase()))
-        .join("") as PascalCase<T>)
+        .map((p) => upperFirst(opts?.normalize ? p.toLowerCase() : p))
+        .join("") as PascalCase<T, UserCaseOptions["normalize"]>)
     : "";
 }
 
 export function camelCase(): "";
-export function camelCase<T extends string | readonly string[]>(
-  str: T,
-): CamelCase<T>;
-export function camelCase<T extends string | readonly string[]>(str?: T) {
-  return lowerFirst(pascalCase(str || "")) as CamelCase<T>;
+export function camelCase<
+  T extends string | readonly string[],
+  UserCaseOptions extends CaseOptions = CaseOptions,
+>(str: T, opts?: UserCaseOptions): CamelCase<T, UserCaseOptions["normalize"]>;
+export function camelCase<
+  T extends string | readonly string[],
+  UserCaseOptions extends CaseOptions = CaseOptions,
+>(str?: T, opts?: UserCaseOptions) {
+  return lowerFirst(pascalCase(str || "", opts)) as CamelCase<
+    T,
+    UserCaseOptions["normalize"]
+  >;
 }
 
 export function kebabCase(): "";
