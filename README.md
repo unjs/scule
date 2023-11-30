@@ -29,7 +29,7 @@ import { pascalCase } from "scule";
 
 ## Utils
 
-### `pascalCase(str)`
+### `pascalCase(str, opts?: { normalize })`
 
 Splits string and joins by PascalCase convention:
 
@@ -38,9 +38,9 @@ pascalCase("foo-bar_baz");
 // FooBarBaz
 ```
 
-**Notice:** If an uppercase letter is followed by other uppercase letters (like `FooBAR`), they are preserved.
+**Notice:** If an uppercase letter is followed by other uppercase letters (like `FooBAR`), they are preserved. You can use `{ normalize: true }` for strictly following pascalCase convention.
 
-### `camelCase`
+### `camelCase(str, opts?: { normalize })`
 
 Splits string and joins by camelCase convention:
 

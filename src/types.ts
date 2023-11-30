@@ -36,6 +36,10 @@ type RemoveLastOfArray<T extends any[]> = T extends [...infer F, any]
   ? F
   : never;
 
+export type CaseOptions = {
+  normalize?: boolean;
+};
+
 export type SplitByCase<
   T,
   Separator extends string = Splitter,

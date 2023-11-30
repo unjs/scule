@@ -47,7 +47,7 @@ describe("pascalCase", () => {
     ["FOO_BAR", "FooBar"],
     ["foo--bar-Baz", "FooBarBaz"],
   ])("%s => %s", (input, expected) => {
-    expect(pascalCase(input)).toMatchObject(expected);
+    expect(pascalCase(input, { normalize: true })).toMatchObject(expected);
   });
 });
 
@@ -56,7 +56,7 @@ describe("camelCase", () => {
     ["FooBarBaz", "fooBarBaz"],
     ["FOO_BAR", "fooBar"],
   ])("%s => %s", (input, expected) => {
-    expect(camelCase(input)).toMatchObject(expected);
+    expect(camelCase(input, { normalize: true })).toMatchObject(expected);
   });
 });
 
