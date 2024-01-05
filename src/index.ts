@@ -5,6 +5,8 @@ import type {
   SnakeCase,
   SplitByCase,
   CaseOptions,
+  TrainCase,
+  FlatCase,
 } from "./types";
 
 const NUMBER_CHAR_RE = /\d/;
@@ -142,6 +144,34 @@ export function snakeCase<T extends string | readonly string[]>(
 ): SnakeCase<T>;
 export function snakeCase<T extends string | readonly string[]>(str?: T) {
   return kebabCase(str || "", "_") as SnakeCase<T>;
+}
+
+export function flatCase(): "";
+export function flatCase<T extends string | readonly string[]>(
+  str: T,
+): FlatCase<T>;
+export function flatCase<T extends string | readonly string[]>(str?: T) {
+  return kebabCase(str || "", "") as FlatCase<T>;
+}
+
+export function trainCase(): "";
+export function trainCase<T extends string | readonly string[]>(
+  str: T,
+): TrainCase<T>;
+export function trainCase<T extends string | readonly string[]>(str?: T) {
+  return str
+    ? ((
+        (Array.isArray(str) ? str : splitByCase(str as string)) as Array<string>
+      )
+        // eslint-disable-next-line unicorn/no-array-reduce -- map and filter would require iterating twice
+        .reduce((acc, p) => {
+          acc +=
+            acc.length > 0
+              ? p && `-${upperFirst(p.toLowerCase())}`
+              : p && upperFirst(p.toLowerCase());
+          return acc;
+        }, "") as TrainCase<T>)
+    : "";
 }
 
 export * from "./types";

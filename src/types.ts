@@ -146,3 +146,20 @@ export type SnakeCase<T extends string | readonly string[]> = JoinByCase<
   T,
   "_"
 >;
+
+export type TrainCase<T> = string extends T
+  ? string
+  : string[] extends T
+    ? string
+    : T extends string
+      ? SplitByCase<T> extends readonly string[]
+        ? CapitalizedWords<SplitByCase<T>, "-">
+        : never
+      : T extends readonly string[]
+        ? CapitalizedWords<T, "-">
+        : never;
+
+export type FlatCase<
+  T extends string | readonly string[],
+  Joiner extends string = "",
+> = JoinByCase<T, Joiner>;

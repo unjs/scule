@@ -69,6 +69,24 @@ snakeCase("foo-barBaz");
 // foo_bar_baz
 ```
 
+### `flatCase`
+
+Splits string and joins by flatcase convention:
+
+```ts
+flatCase("foo-barBaz");
+// foobarbaz
+```
+
+### `trainCase`
+
+Split string and joins by Train-Case (a.k.a. HTTP-Header-Case) convention:
+
+```ts
+trainCase("FooBARb");
+// Foo-Ba-Rb
+```
+
 ### `upperFirst(str)`
 
 Converts first character to upper case:

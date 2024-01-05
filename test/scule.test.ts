@@ -7,6 +7,8 @@ import {
   upperFirst,
   lowerFirst,
   snakeCase,
+  trainCase,
+  flatCase,
 } from "../src";
 
 describe("splitByCase", () => {
@@ -101,5 +103,34 @@ describe("lowerFirst", () => {
     ["Foo", "foo"],
   ])("%s => %s", (input, expected) => {
     expect(lowerFirst(input)).toMatchObject(expected);
+  });
+});
+
+describe("trainCase", () => {
+  test.each([
+    ["", ""],
+    ["f", "F"],
+    ["foo", "Foo"],
+    ["foo-bAr", "Foo-B-Ar"],
+    ["FooBARb", "Foo-Ba-Rb"],
+    ["foo_bar-baz/qux", "Foo-Bar-Baz-Qux"],
+    ["FOO_BAR", "Foo-Bar"],
+    ["foo--bar-Baz", "Foo-Bar-Baz"],
+  ])("%s => %s", (input, expected) => {
+    expect(trainCase(input)).toMatchObject(expected);
+  });
+});
+
+describe("flatCase", () => {
+  test.each([
+    ["", ""],
+    ["foo", "foo"],
+    ["foo-bAr", "foobar"],
+    ["FooBARb", "foobarb"],
+    ["foo_bar-baz/qux", "foobarbazqux"],
+    ["FOO_BAR", "foobar"],
+    ["foo--bar-Baz", "foobarbaz"],
+  ])("%s => %s", (input, expected) => {
+    expect(flatCase(input)).toMatchObject(expected);
   });
 });
