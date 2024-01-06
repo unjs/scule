@@ -155,10 +155,14 @@ export function flatCase<T extends string | readonly string[]>(str?: T) {
 }
 
 export function trainCase(): "";
-export function trainCase<T extends string | readonly string[]>(
-  str: T,
-): TrainCase<T>;
-export function trainCase<T extends string | readonly string[]>(str?: T) {
+export function trainCase<
+  T extends string | readonly string[],
+  UserCaseOptions extends CaseOptions = CaseOptions,
+>(str: T, opts?: UserCaseOptions): TrainCase<T, UserCaseOptions["normalize"]>;
+export function trainCase<
+  T extends string | readonly string[],
+  UserCaseOptions extends CaseOptions = CaseOptions,
+>(str?: T, opts?: UserCaseOptions) {
   return str
     ? ((
         (Array.isArray(str) ? str : splitByCase(str as string)) as Array<string>
@@ -167,10 +171,10 @@ export function trainCase<T extends string | readonly string[]>(str?: T) {
         .reduce((acc, p) => {
           acc +=
             acc.length > 0
-              ? p && `-${upperFirst(p.toLowerCase())}`
-              : p && upperFirst(p.toLowerCase());
+              ? p && `-${upperFirst(opts?.normalize ? p.toLowerCase() : p)}`
+              : p && upperFirst(opts?.normalize ? p.toLowerCase() : p);
           return acc;
-        }, "") as TrainCase<T>)
+        }, "") as TrainCase<T, UserCaseOptions["normalize"]>)
     : "";
 }
 

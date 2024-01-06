@@ -87,6 +87,8 @@ trainCase("FooBARb");
 // Foo-Ba-Rb
 ```
 
+**Notice:** If an uppercase letter is followed by other uppercase letters (like `WWWAuthenticate`), they are preserved (=> `WWW-Authenticate`). You can use `{ normalize: true }` for strictly only having the first letter uppercased.
+
 ### `upperFirst(str)`
 
 Converts first character to upper case:

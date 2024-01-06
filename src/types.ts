@@ -147,7 +147,10 @@ export type SnakeCase<T extends string | readonly string[]> = JoinByCase<
   "_"
 >;
 
-export type TrainCase<T> = string extends T
+export type TrainCase<
+  T,
+  Normalize extends boolean | undefined = false,
+> = string extends T
   ? string
   : string[] extends T
     ? string
@@ -156,7 +159,7 @@ export type TrainCase<T> = string extends T
         ? CapitalizedWords<SplitByCase<T>, "-">
         : never
       : T extends readonly string[]
-        ? CapitalizedWords<T, "-">
+        ? CapitalizedWords<T, "-", Normalize>
         : never;
 
 export type FlatCase<
