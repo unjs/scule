@@ -163,19 +163,22 @@ export function trainCase<
   T extends string | readonly string[],
   UserCaseOptions extends CaseOptions = CaseOptions,
 >(str?: T, opts?: UserCaseOptions) {
-  return str
-    ? ((
-        (Array.isArray(str) ? str : splitByCase(str as string)) as Array<string>
-      )
-        // eslint-disable-next-line unicorn/no-array-reduce -- map and filter would require iterating twice
-        .reduce((acc, p) => {
-          acc +=
-            acc.length > 0
-              ? p && `-${upperFirst(opts?.normalize ? p.toLowerCase() : p)}`
-              : p && upperFirst(opts?.normalize ? p.toLowerCase() : p);
-          return acc;
-        }, "") as TrainCase<T, UserCaseOptions["normalize"]>)
-    : "";
+  if (!str) {
+    return "";
+  }
+
+  const splits = Array.isArray(str) ? str : splitByCase(str as string);
+  let result = "";
+  for (const p of splits) {
+    if (p) {
+      result +=
+        result.length > 0
+          ? `-${upperFirst(opts?.normalize ? p.toLowerCase() : p)}`
+          : upperFirst(opts?.normalize ? p.toLowerCase() : p);
+    }
+  }
+
+  return result as TrainCase<T, UserCaseOptions["normalize"]>;
 }
 
 export * from "./types";
