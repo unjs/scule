@@ -163,22 +163,10 @@ export function trainCase<
   T extends string | readonly string[],
   UserCaseOptions extends CaseOptions = CaseOptions,
 >(str?: T, opts?: UserCaseOptions) {
-  if (!str) {
-    return "";
-  }
-
-  const splits = Array.isArray(str) ? str : splitByCase(str as string);
-  let result = "";
-  for (const p of splits) {
-    if (p) {
-      result +=
-        result.length > 0
-          ? `-${upperFirst(opts?.normalize ? p.toLowerCase() : p)}`
-          : upperFirst(opts?.normalize ? p.toLowerCase() : p);
-    }
-  }
-
-  return result as TrainCase<T, UserCaseOptions["normalize"]>;
+  return (Array.isArray(str) ? str : splitByCase(str as string))
+    .filter(Boolean)
+    .map((p) => upperFirst(opts?.normalize ? p.toLowerCase() : p))
+    .join("-") as TrainCase<T, UserCaseOptions["normalize"]>;
 }
 
 export * from "./types";
