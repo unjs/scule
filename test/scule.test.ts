@@ -30,6 +30,7 @@ describe("splitByCase", () => {
       ["foo", "Bar", "fuzz", "FI", "Zz"],
       ["\\", ".", "-"],
     ],
+    ["new-name-value", ["new-name-value"], ["_"]],
   ])("%s => %s", (input, expected, customSplitters?) => {
     if (customSplitters) {
       expect(splitByCase(input, customSplitters)).toMatchObject(expected);

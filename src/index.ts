@@ -16,7 +16,7 @@ export function isUppercase(char = ""): boolean | undefined {
   if (NUMBER_CHAR_RE.test(char)) {
     return undefined;
   }
-  return char.toUpperCase() === char;
+  return char !== char.toLowerCase();
 }
 
 export function splitByCase<T extends string>(str: T): SplitByCase<T>;
