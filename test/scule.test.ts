@@ -7,6 +7,8 @@ import {
   upperFirst,
   lowerFirst,
   snakeCase,
+  trainCase,
+  flatCase,
 } from "../src";
 
 describe("splitByCase", () => {
@@ -101,5 +103,44 @@ describe("lowerFirst", () => {
     ["Foo", "foo"],
   ])("%s => %s", (input, expected) => {
     expect(lowerFirst(input)).toMatchObject(expected);
+  });
+});
+
+describe("trainCase", () => {
+  test.each([
+    ["", ""],
+    ["f", "F"],
+    ["foo", "Foo"],
+    ["foo-bAr", "Foo-B-Ar"],
+    ["AcceptCH", "Accept-CH"],
+    ["foo_bar-baz/qux", "Foo-Bar-Baz-Qux"],
+    ["FOO_BAR", "FOO-BAR"],
+    ["foo--bar-Baz", "Foo-Bar-Baz"],
+    ["WWW-authenticate", "WWW-Authenticate"],
+    ["WWWAuthenticate", "WWW-Authenticate"],
+  ])("%s => %s", (input, expected) => {
+    expect(trainCase(input)).toMatchObject(expected);
+  });
+
+  test.each([
+    ["AcceptCH", "Accept-Ch"],
+    ["FOO_BAR", "Foo-Bar"],
+    ["WWW-authenticate", "Www-Authenticate"],
+  ])("%s => %s", (input, expected) => {
+    expect(trainCase(input, { normalize: true })).toMatchObject(expected);
+  });
+});
+
+describe("flatCase", () => {
+  test.each([
+    ["", ""],
+    ["foo", "foo"],
+    ["foo-bAr", "foobar"],
+    ["FooBARb", "foobarb"],
+    ["foo_bar-baz/qux", "foobarbazqux"],
+    ["FOO_BAR", "foobar"],
+    ["foo--bar-Baz", "foobarbaz"],
+  ])("%s => %s", (input, expected) => {
+    expect(flatCase(input)).toMatchObject(expected);
   });
 });

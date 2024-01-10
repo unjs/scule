@@ -5,6 +5,8 @@ import type {
   SnakeCase,
   SplitByCase,
   CaseOptions,
+  TrainCase,
+  FlatCase,
 } from "./types";
 
 const NUMBER_CHAR_RE = /\d/;
@@ -142,6 +144,29 @@ export function snakeCase<T extends string | readonly string[]>(
 ): SnakeCase<T>;
 export function snakeCase<T extends string | readonly string[]>(str?: T) {
   return kebabCase(str || "", "_") as SnakeCase<T>;
+}
+
+export function flatCase(): "";
+export function flatCase<T extends string | readonly string[]>(
+  str: T,
+): FlatCase<T>;
+export function flatCase<T extends string | readonly string[]>(str?: T) {
+  return kebabCase(str || "", "") as FlatCase<T>;
+}
+
+export function trainCase(): "";
+export function trainCase<
+  T extends string | readonly string[],
+  UserCaseOptions extends CaseOptions = CaseOptions,
+>(str: T, opts?: UserCaseOptions): TrainCase<T, UserCaseOptions["normalize"]>;
+export function trainCase<
+  T extends string | readonly string[],
+  UserCaseOptions extends CaseOptions = CaseOptions,
+>(str?: T, opts?: UserCaseOptions) {
+  return (Array.isArray(str) ? str : splitByCase(str as string))
+    .filter(Boolean)
+    .map((p) => upperFirst(opts?.normalize ? p.toLowerCase() : p))
+    .join("-") as TrainCase<T, UserCaseOptions["normalize"]>;
 }
 
 export * from "./types";

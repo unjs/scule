@@ -69,6 +69,26 @@ snakeCase("foo-barBaz");
 // foo_bar_baz
 ```
 
+### `flatCase`
+
+Splits string and joins by flatcase convention:
+
+```ts
+flatCase("foo-barBaz");
+// foobarbaz
+```
+
+### `trainCase(str, opts?: { normalize })`
+
+Split string and joins by Train-Case (a.k.a. HTTP-Header-Case) convention:
+
+```ts
+trainCase("FooBARb");
+// Foo-Ba-Rb
+```
+
+**Notice:** If an uppercase letter is followed by other uppercase letters (like `WWWAuthenticate`), they are preserved (=> `WWW-Authenticate`). You can use `{ normalize: true }` for strictly only having the first letter uppercased.
+
 ### `upperFirst(str)`
 
 Converts first character to upper case:
