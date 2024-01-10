@@ -32,6 +32,7 @@ describe("SplitByCase", () => {
       "FI",
       "Zz",
     ]);
+    assertType<SplitByCase<"foo-bar-baz", "_">>(["foo-bar-baz"]);
   });
 });
 
