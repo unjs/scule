@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v1.2.0
+
+[compare changes](https://github.com/unjs/scule/compare/v1.1.1...v1.2.0)
+
+### 🚀 Enhancements
+
+- Add `flatCase` and `trainCase` ([#68](https://github.com/unjs/scule/pull/68))
+
+### 🩹 Fixes
+
+- **isUppercase:** Assume characters lowercase by default ([#71](https://github.com/unjs/scule/pull/71))
+
+### 🏡 Chore
+
+- Add `skipLibCheck` ([3b0c760](https://github.com/unjs/scule/commit/3b0c760))
+- Update lockfile ([5024603](https://github.com/unjs/scule/commit/5024603))
+
+### ✅ Tests
+
+- Add type tests for #71 ([#71](https://github.com/unjs/scule/issues/71))
+
+### ❤️ Contributors
+
+- Pooya Parsa ([@pi0](http://github.com/pi0))
+- Jan-Henrik Damaschke <jdamaschke@outlook.de>
+
 ## v1.1.1
 
 [compare changes](https://github.com/unjs/scule/compare/v1.1.0...v1.1.1)
