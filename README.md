@@ -92,12 +92,11 @@ trainCase("FooBARb");
 ### `titleCase(str, opts?: { normalize })`
 
 With Title Case all words are capitalized, except for minor words.
-
-A compact regex of common minor words (such as `a`, `for`, `to`) is used to automatically keep the lower case.
+A compact regex of common minor words (such as `a`, `for`, `to`) is used to automatically keep them lower case.
 
 ```ts
 titleCase("this-IS-aTitle");
-// This is a title
+// This is a Title
 ```
 
 ### `upperFirst(str)`
