@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v1.3.0
+
+[compare changes](https://github.com/unjs/scule/compare/v1.2.0...v1.3.0)
+
+### 🚀 Enhancements
+
+- `trainCase` util ([#74](https://github.com/unjs/scule/pull/74))
+
+### 🏡 Chore
+
+- Lint ([1f6754f](https://github.com/unjs/scule/commit/1f6754f))
+- Update lockfile and lint ([742089c](https://github.com/unjs/scule/commit/742089c))
+
+### ❤️ Contributors
+
+- Pooya Parsa ([@pi0](http://github.com/pi0))
+
 ## v1.2.0
 
 [compare changes](https://github.com/unjs/scule/compare/v1.1.1...v1.2.0)
