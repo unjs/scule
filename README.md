@@ -78,7 +78,7 @@ flatCase("foo-barBaz");
 // foobarbaz
 ```
 
-### `trainCase(str, opts?: { normalize, joiner })`
+### `trainCase(str, opts?: { normalize })`
 
 Split string and joins by Train-Case (a.k.a. HTTP-Header-Case) convention:
 
