@@ -169,4 +169,29 @@ export function trainCase<
     .join("-") as TrainCase<T, UserCaseOptions["normalize"]>;
 }
 
+const titleCaseExceptions =
+  /^(a|an|and|as|at|but|by|for|if|in|is|nor|of|on|or|the|to|with)$/i;
+
+export function titleCase(): "";
+export function titleCase<
+  T extends string | readonly string[],
+  UserCaseOptions extends CaseOptions = CaseOptions,
+>(
+  str: T,
+  opts?: UserCaseOptions,
+): TrainCase<T, UserCaseOptions["normalize"], " ">;
+export function titleCase<
+  T extends string | readonly string[],
+  UserCaseOptions extends CaseOptions = CaseOptions,
+>(str?: T, opts?: UserCaseOptions) {
+  return (Array.isArray(str) ? str : splitByCase(str as string))
+    .filter(Boolean)
+    .map((p) =>
+      titleCaseExceptions.test(p)
+        ? p.toLowerCase()
+        : upperFirst(opts?.normalize ? p.toLowerCase() : p),
+    )
+    .join(" ") as TrainCase<T, UserCaseOptions["normalize"]>;
+}
+
 export * from "./types";

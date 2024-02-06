@@ -9,6 +9,7 @@ import {
   snakeCase,
   trainCase,
   flatCase,
+  titleCase,
 } from "../src";
 
 describe("splitByCase", () => {
@@ -129,6 +130,18 @@ describe("trainCase", () => {
     ["WWW-authenticate", "Www-Authenticate"],
   ])("%s => %s", (input, expected) => {
     expect(trainCase(input, { normalize: true })).toMatchObject(expected);
+  });
+});
+
+describe("titleCase", () => {
+  test.each([
+    ["", ""],
+    ["f", "F"],
+    ["foo", "Foo"],
+    ["foo-bar", "Foo Bar"],
+    ["this-IS-aTitle", "This is a Title"],
+  ])("%s => %s", (input, expected) => {
+    expect(titleCase(input)).toMatchObject(expected);
   });
 });
 

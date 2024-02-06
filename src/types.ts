@@ -7,12 +7,14 @@ type RemoveFirstOfString<S extends string> = S extends `${string}${infer R}`
   : never;
 type IsUpper<S extends string> = S extends Uppercase<S> ? true : false;
 type IsLower<S extends string> = S extends Lowercase<S> ? true : false;
-type SameLetterCase<X extends string, Y extends string> =
-  IsUpper<X> extends IsUpper<Y>
+type SameLetterCase<
+  X extends string,
+  Y extends string,
+> = IsUpper<X> extends IsUpper<Y>
+  ? true
+  : IsLower<X> extends IsLower<Y>
     ? true
-    : IsLower<X> extends IsLower<Y>
-      ? true
-      : false;
+    : false;
 type CapitalizedWords<
   T extends readonly string[],
   Accumulator extends string = "",
@@ -148,16 +150,17 @@ export type SnakeCase<T extends string | readonly string[]> = JoinByCase<
 export type TrainCase<
   T,
   Normalize extends boolean | undefined = false,
+  Joiner extends string = "-",
 > = string extends T
   ? string
   : string[] extends T
     ? string
     : T extends string
       ? SplitByCase<T> extends readonly string[]
-        ? CapitalizedWords<SplitByCase<T>, "-">
+        ? CapitalizedWords<SplitByCase<T>, Joiner>
         : never
       : T extends readonly string[]
-        ? CapitalizedWords<T, "-", Normalize>
+        ? CapitalizedWords<T, Joiner, Normalize>
         : never;
 
 export type FlatCase<
