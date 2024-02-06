@@ -7,12 +7,14 @@ type RemoveFirstOfString<S extends string> = S extends `${string}${infer R}`
   : never;
 type IsUpper<S extends string> = S extends Uppercase<S> ? true : false;
 type IsLower<S extends string> = S extends Lowercase<S> ? true : false;
-type SameLetterCase<X extends string, Y extends string> =
-  IsUpper<X> extends IsUpper<Y>
+type SameLetterCase<
+  X extends string,
+  Y extends string,
+> = IsUpper<X> extends IsUpper<Y>
+  ? true
+  : IsLower<X> extends IsLower<Y>
     ? true
-    : IsLower<X> extends IsLower<Y>
-      ? true
-      : false;
+    : false;
 type CapitalizedWords<
   T extends readonly string[],
   Accumulator extends string = "",
