@@ -29,15 +29,15 @@
     "test": "pnpm lint && vitest run --typecheck --coverage"
   },
   "devDependencies": {
-    "@types/node": "^20.12.8",
-    "@vitest/coverage-v8": "^1.5.3",
-    "changelogen": "^0.5.5",
-    "eslint": "^8.57.0",
-    "eslint-config-unjs": "^0.2.1",
-    "prettier": "^3.2.5",
-    "typescript": "^5.4.5",
+    "@types/node": "^20.16.12",
+    "@vitest/coverage-v8": "^1.6.0",
+    "changelogen": "^0.5.7",
+    "eslint": "^8.57.1",
+    "eslint-config-unjs": "^0.4.1",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3",
     "unbuild": "^2.0.0",
-    "vitest": "^1.5.3"
+    "vitest": "^1.6.0"
   },
-  "packageManager": "pnpm@9.0.6"
+  "packageManager": "pnpm@9.12.2"
 }
