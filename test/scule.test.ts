@@ -25,6 +25,8 @@ describe("splitByCase", () => {
     ["foo123-bar", ["foo123", "bar"]],
     ["FOOBar", ["FOO", "Bar"]],
     ["ALink", ["A", "Link"]],
+    ["-FooBar", ["", "Foo", "Bar"]],
+    [" FooBar", ["", "Foo", "Bar"]],
     // with custom splitters
     [
       "foo\\Bar.fuzz-FIZz",

@@ -21,21 +21,18 @@ type CapitalizedWords<
   Accumulator extends string = "",
 > = T extends readonly []
   ? Accumulator
-  : T extends readonly [infer F extends string]
+  : T extends readonly [infer F extends string, ...infer R extends string[]]
     ? CapitalizedWords<
-        [],
+        R,
         Joiner,
         Normalize,
-        `${Accumulator}${Capitalize<Normalize extends true ? Lowercase<F> : F>}`
+        `${Accumulator}${Capitalize<Normalize extends true ? Lowercase<F> : F>}${[
+          LastOfArray<R>,
+        ] extends [never]
+          ? ""
+          : Joiner}`
       >
-    : T extends readonly [infer F extends string, ...infer R extends string[]]
-      ? CapitalizedWords<
-          R,
-          Joiner,
-          Normalize,
-          `${Accumulator}${Capitalize<Normalize extends true ? Lowercase<F> : F>}${Joiner}`
-        >
-      : Accumulator;
+    : Accumulator;
 
 type JoinLowercaseWords<
   T extends readonly string[],
@@ -99,7 +96,7 @@ export type SplitByCase<
   ? string[]
   : T extends `${infer F}${infer R}`
     ? [LastOfArray<Accumulator>] extends [never]
-      ? SplitByCase<R, Separator, [F]>
+      ? SplitByCase<R, Separator, F extends Separator | Whitespace ? [] : [F]>
       : LastOfArray<Accumulator> extends string
         ? R extends ""
           ? SplitByCase<
