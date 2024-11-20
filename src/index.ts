@@ -186,6 +186,7 @@ export function titleCase<
 >(str?: T, opts?: UserCaseOptions) {
   return (Array.isArray(str) ? str : splitByCase(str as string))
     .filter(Boolean)
+    .map((p) => p.trim())
     .map((p) =>
       titleCaseExceptions.test(p)
         ? p.toLowerCase()
