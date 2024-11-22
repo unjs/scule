@@ -1,4 +1,4 @@
-type Splitter = "-" | "_" | "/" | ".";
+type Splitter = "-" | "_" | "/" | "." | " ";
 type FirstOfString<S extends string> = S extends `${infer F}${string}`
   ? F
   : never;
