@@ -22,6 +22,11 @@ describe("SplitByCase", () => {
     assertType<SplitByCase<"FOOBar">>(["FOO", "Bar"]);
     assertType<SplitByCase<"ALink">>(["A", "Link"]);
     assertType<SplitByCase<"FOO_BAR">>(["FOO", "BAR"]);
+    assertType<SplitByCase<"FOO BAR">>(["FOO", "BAR"]);
+    assertType<SplitByCase<"foO BAR">>(["fo", "O", "BAR"]);
+    assertType<SplitByCase<"Foo BAR">>(["Foo", "BAR"]);
+    assertType<SplitByCase<"Foo bAR">>(["Foo", "b", "AR"]);
+    assertType<SplitByCase<"FOO Bar">>(["FOO", "Bar"]);
   });
 
   test("custom splitters", () => {
