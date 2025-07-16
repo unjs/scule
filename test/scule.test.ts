@@ -25,6 +25,8 @@ describe("splitByCase", () => {
     ["foo123-bar", ["foo123", "bar"]],
     ["FOOBar", ["FOO", "Bar"]],
     ["ALink", ["A", "Link"]],
+    ["-FooBar", ["", "Foo", "Bar"]],
+    [" FooBar", ["", "Foo", "Bar"]],
     // with custom splitters
     [
       "foo\\Bar.fuzz-FIZz",
@@ -50,6 +52,7 @@ describe("pascalCase", () => {
     ["foo_bar-baz/qux", "FooBarBazQux"],
     ["FOO_BAR", "FooBar"],
     ["foo--bar-Baz", "FooBarBaz"],
+    ["FooBarBazQux", "FooBarBazQux"],
   ])("%s => %s", (input, expected) => {
     expect(pascalCase(input, { normalize: true })).toMatchObject(expected);
   });
@@ -59,6 +62,7 @@ describe("camelCase", () => {
   test.each([
     ["FooBarBaz", "fooBarBaz"],
     ["FOO_BAR", "fooBar"],
+    ["fooBarBaz", "fooBarBaz"],
   ])("%s => %s", (input, expected) => {
     expect(camelCase(input, { normalize: true })).toMatchObject(expected);
   });
@@ -74,6 +78,7 @@ describe("kebabCase", () => {
     ["FooBAR", "foo-bar"],
     ["ALink", "a-link"],
     ["FOO_BAR", "foo-bar"],
+    ["foo-b-ar", "foo-b-ar"],
   ])("%s => %s", (input, expected) => {
     expect(kebabCase(input)).toMatchObject(expected);
   });
@@ -83,6 +88,7 @@ describe("snakeCase", () => {
   test.each([
     ["FooBarBaz", "foo_bar_baz"],
     ["FOO_BAR", "foo_bar"],
+    ["foo_bar_baz", "foo_bar_baz"],
   ])("%s => %s", (input, expected) => {
     expect(snakeCase(input)).toMatchObject(expected);
   });
@@ -93,6 +99,7 @@ describe("upperFirst", () => {
     ["", ""],
     ["foo", "Foo"],
     ["Foo", "Foo"],
+    ["FooBarBaz", "FooBarBaz"],
   ])("%s => %s", (input, expected) => {
     expect(upperFirst(input)).toMatchObject(expected);
   });
@@ -103,6 +110,7 @@ describe("lowerFirst", () => {
     ["", ""],
     ["foo", "foo"],
     ["Foo", "foo"],
+    ["fooBarBaz", "fooBarBaz"],
   ])("%s => %s", (input, expected) => {
     expect(lowerFirst(input)).toMatchObject(expected);
   });
@@ -120,6 +128,7 @@ describe("trainCase", () => {
     ["foo--bar-Baz", "Foo-Bar-Baz"],
     ["WWW-authenticate", "WWW-Authenticate"],
     ["WWWAuthenticate", "WWW-Authenticate"],
+    ["Foo-B-Ar", "Foo-B-Ar"],
   ])("%s => %s", (input, expected) => {
     expect(trainCase(input)).toMatchObject(expected);
   });
@@ -140,6 +149,7 @@ describe("titleCase", () => {
     ["foo", "Foo"],
     ["foo-bar", "Foo Bar"],
     ["this-IS-aTitle", "This is a Title"],
+    ["Foo Bar", "Foo Bar"],
   ])("%s => %s", (input, expected) => {
     expect(titleCase(input)).toMatchObject(expected);
   });
@@ -154,6 +164,7 @@ describe("flatCase", () => {
     ["foo_bar-baz/qux", "foobarbazqux"],
     ["FOO_BAR", "foobar"],
     ["foo--bar-Baz", "foobarbaz"],
+    ["foobarbaz", "foobarbaz"],
   ])("%s => %s", (input, expected) => {
     expect(flatCase(input)).toMatchObject(expected);
   });
