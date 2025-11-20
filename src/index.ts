@@ -9,11 +9,15 @@ import type {
   FlatCase,
 } from "./types";
 
-const NUMBER_CHAR_RE = /\d/;
 const STR_SPLITTERS = ["-", "_", "/", "."] as const;
 
 export function isUppercase(char = ""): boolean | undefined {
-  if (NUMBER_CHAR_RE.test(char)) {
+  if (!char) { return false; }
+  const code = char.codePointAt(0);
+  if (code === undefined) {
+    return undefined;
+  }
+  if (code >= 48 && code <= 57) {
     return undefined;
   }
   return char !== char.toLowerCase();
