@@ -10,9 +10,12 @@ import type {
 } from "./types";
 
 const STR_SPLITTERS = ["-", "_", "/", "."] as const;
+const SPLITTER_SET = new Set(STR_SPLITTERS);
 
 export function isUppercase(char = ""): boolean | undefined {
-  if (!char) { return false; }
+  if (!char.trim()) {
+    return false;
+  }
   const code = char.codePointAt(0);
   if (code === undefined) {
     return undefined;
@@ -32,7 +35,8 @@ export function splitByCase<
   T extends string,
   Separator extends readonly string[],
 >(str: T, separators?: Separator) {
-  const splitters = separators ?? STR_SPLITTERS;
+  const splitterSet = separators ? new Set(separators) : SPLITTER_SET;
+
   const parts: string[] = [];
 
   if (!str || typeof str !== "string") {
@@ -46,7 +50,7 @@ export function splitByCase<
 
   for (const char of str) {
     // Splitter
-    const isSplitter = (splitters as unknown as string).includes(char);
+    const isSplitter = splitterSet.has(char);
     if (isSplitter === true) {
       parts.push(buff);
       buff = "";
