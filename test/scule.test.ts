@@ -1,5 +1,6 @@
 import { describe, test, expect } from "vitest";
 import {
+  isUppercase,
   splitByCase,
   pascalCase,
   kebabCase,
@@ -11,6 +12,24 @@ import {
   flatCase,
   titleCase,
 } from "../src";
+
+describe("isUpperCase", () => {
+  test.each([
+    ["A", true],
+    ["Z", true],
+    ["a", false],
+    ["z", false],
+    ["", false],
+    ["5", undefined],
+    ["9", undefined],
+    ["!", false],
+    ["Ü", true],
+    ["ß", false],
+    [" ", false],
+  ])("%s => %s", (input, expected) => {
+    expect(isUppercase(input)).toBe(expected);
+  });
+});
 
 describe("splitByCase", () => {
   test.each([
