@@ -13,17 +13,27 @@ type SameLetterCase<X extends string, Y extends string> =
     : IsLower<X> extends IsLower<Y>
       ? true
       : false;
+
 type CapitalizedWords<
   T extends readonly string[],
-  Accumulator extends string = "",
+  Joiner extends string,
   Normalize extends boolean | undefined = false,
-> = T extends readonly [infer F extends string, ...infer R extends string[]]
-  ? CapitalizedWords<
-      R,
-      `${Accumulator}${Capitalize<Normalize extends true ? Lowercase<F> : F>}`,
-      Normalize
-    >
-  : Accumulator;
+  Accumulator extends string = "",
+> = T extends readonly []
+  ? Accumulator
+  : T extends readonly [infer F extends string, ...infer R extends string[]]
+    ? CapitalizedWords<
+        R,
+        Joiner,
+        Normalize,
+        `${Accumulator}${Capitalize<Normalize extends true ? Lowercase<F> : F>}${[
+          LastOfArray<R>,
+        ] extends [never]
+          ? ""
+          : Joiner}`
+      >
+    : Accumulator;
+
 type JoinLowercaseWords<
   T extends readonly string[],
   Joiner extends string,
@@ -39,6 +49,41 @@ type RemoveLastOfArray<T extends any[]> = T extends [...infer F, any]
   ? F
   : never;
 
+type Whitespace =
+  | "\u{9}" // '\t'
+  | "\u{A}" // '\n'
+  | "\u{B}" // '\v'
+  | "\u{C}" // '\f'
+  | "\u{D}" // '\r'
+  | "\u{20}" // ' '
+  | "\u{85}"
+  | "\u{A0}"
+  | "\u{1680}"
+  | "\u{2000}"
+  | "\u{2001}"
+  | "\u{2002}"
+  | "\u{2003}"
+  | "\u{2004}"
+  | "\u{2005}"
+  | "\u{2006}"
+  | "\u{2007}"
+  | "\u{2008}"
+  | "\u{2009}"
+  | "\u{200A}"
+  | "\u{2028}"
+  | "\u{2029}"
+  | "\u{202F}"
+  | "\u{205F}"
+  | "\u{3000}"
+  | "\u{FEFF}";
+type TrimLeft<T extends string> = T extends `${Whitespace}${infer R}`
+  ? TrimLeft<R>
+  : T;
+type TrimRight<T extends string> = T extends `${infer R}${Whitespace}`
+  ? TrimRight<R>
+  : T;
+type Trim<T extends string> = TrimLeft<TrimRight<T>>;
+
 export type CaseOptions = {
   normalize?: boolean;
 };
@@ -51,7 +96,7 @@ export type SplitByCase<
   ? string[]
   : T extends `${infer F}${infer R}`
     ? [LastOfArray<Accumulator>] extends [never]
-      ? SplitByCase<R, Separator, [F]>
+      ? SplitByCase<R, Separator, F extends Separator | Whitespace ? [] : [F]>
       : LastOfArray<Accumulator> extends string
         ? R extends ""
           ? SplitByCase<
@@ -59,7 +104,7 @@ export type SplitByCase<
               Separator,
               [
                 ...RemoveLastOfArray<Accumulator>,
-                `${LastOfArray<Accumulator>}${F}`,
+                Trim<`${LastOfArray<Accumulator>}${F}`>,
               ]
             >
           : SameLetterCase<F, FirstOfString<R>> extends true
@@ -78,7 +123,7 @@ export type SplitByCase<
                   Separator,
                   [
                     ...RemoveLastOfArray<Accumulator>,
-                    `${LastOfArray<Accumulator>}${F}`,
+                    Trim<`${LastOfArray<Accumulator>}${F}`>,
                   ]
                 >
             : IsLower<F> extends true
@@ -87,7 +132,7 @@ export type SplitByCase<
                   Separator,
                   [
                     ...RemoveLastOfArray<Accumulator>,
-                    `${LastOfArray<Accumulator>}${F}`,
+                    Trim<`${LastOfArray<Accumulator>}${F}`>,
                     FirstOfString<R>,
                   ]
                 >

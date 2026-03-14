@@ -44,7 +44,7 @@ export function splitByCase<
     // Splitter
     const isSplitter = (splitters as unknown as string).includes(char);
     if (isSplitter === true) {
-      parts.push(buff);
+      parts.push(buff.trim());
       buff = "";
       previousUpper = undefined;
       continue;
@@ -54,7 +54,7 @@ export function splitByCase<
     if (previousSplitter === false) {
       // Case rising edge
       if (previousUpper === false && isUpper === true) {
-        parts.push(buff);
+        parts.push(buff.trim());
         buff = char;
         previousUpper = isUpper;
         continue;
@@ -62,7 +62,7 @@ export function splitByCase<
       // Case falling edge
       if (previousUpper === true && isUpper === false && buff.length > 1) {
         const lastChar = buff.at(-1);
-        parts.push(buff.slice(0, Math.max(0, buff.length - 1)));
+        parts.push(buff.slice(0, Math.max(0, buff.length - 1)).trim());
         buff = lastChar + char;
         previousUpper = isUpper;
         continue;
@@ -75,7 +75,7 @@ export function splitByCase<
     previousSplitter = isSplitter;
   }
 
-  parts.push(buff);
+  parts.push(buff.trim());
 
   return parts as SplitByCase<T, Separator[number]>;
 }
