@@ -51,7 +51,7 @@ describe("pascalCase", () => {
     ["FOO_BAR", "FooBar"],
     ["foo--bar-Baz", "FooBarBaz"],
   ])("%s => %s", (input, expected) => {
-    expect(pascalCase(input, { normalize: true })).toMatchObject(expected);
+    expect(pascalCase(input, { normalize: true })).toEqual(expected);
   });
 });
 
@@ -60,7 +60,7 @@ describe("camelCase", () => {
     ["FooBarBaz", "fooBarBaz"],
     ["FOO_BAR", "fooBar"],
   ])("%s => %s", (input, expected) => {
-    expect(camelCase(input, { normalize: true })).toMatchObject(expected);
+    expect(camelCase(input, { normalize: true })).toEqual(expected);
   });
 });
 
@@ -75,7 +75,7 @@ describe("kebabCase", () => {
     ["ALink", "a-link"],
     ["FOO_BAR", "foo-bar"],
   ])("%s => %s", (input, expected) => {
-    expect(kebabCase(input)).toMatchObject(expected);
+    expect(kebabCase(input)).toEqual(expected);
   });
 });
 
@@ -84,7 +84,7 @@ describe("snakeCase", () => {
     ["FooBarBaz", "foo_bar_baz"],
     ["FOO_BAR", "foo_bar"],
   ])("%s => %s", (input, expected) => {
-    expect(snakeCase(input)).toMatchObject(expected);
+    expect(snakeCase(input)).toEqual(expected);
   });
 });
 
@@ -94,7 +94,7 @@ describe("upperFirst", () => {
     ["foo", "Foo"],
     ["Foo", "Foo"],
   ])("%s => %s", (input, expected) => {
-    expect(upperFirst(input)).toMatchObject(expected);
+    expect(upperFirst(input)).toEqual(expected);
   });
 });
 
@@ -104,7 +104,7 @@ describe("lowerFirst", () => {
     ["foo", "foo"],
     ["Foo", "foo"],
   ])("%s => %s", (input, expected) => {
-    expect(lowerFirst(input)).toMatchObject(expected);
+    expect(lowerFirst(input)).toEqual(expected);
   });
 });
 
@@ -121,7 +121,7 @@ describe("trainCase", () => {
     ["WWW-authenticate", "WWW-Authenticate"],
     ["WWWAuthenticate", "WWW-Authenticate"],
   ])("%s => %s", (input, expected) => {
-    expect(trainCase(input)).toMatchObject(expected);
+    expect(trainCase(input)).toEqual(expected);
   });
 
   test.each([
@@ -129,7 +129,7 @@ describe("trainCase", () => {
     ["FOO_BAR", "Foo-Bar"],
     ["WWW-authenticate", "Www-Authenticate"],
   ])("%s => %s", (input, expected) => {
-    expect(trainCase(input, { normalize: true })).toMatchObject(expected);
+    expect(trainCase(input, { normalize: true })).toEqual(expected);
   });
 });
 
@@ -141,7 +141,7 @@ describe("titleCase", () => {
     ["foo-bar", "Foo Bar"],
     ["this-IS-aTitle", "This is a Title"],
   ])("%s => %s", (input, expected) => {
-    expect(titleCase(input)).toMatchObject(expected);
+    expect(titleCase(input)).toEqual(expected);
   });
 });
 
@@ -155,6 +155,6 @@ describe("flatCase", () => {
     ["FOO_BAR", "foobar"],
     ["foo--bar-Baz", "foobarbaz"],
   ])("%s => %s", (input, expected) => {
-    expect(flatCase(input)).toMatchObject(expected);
+    expect(flatCase(input)).toEqual(expected);
   });
 });
