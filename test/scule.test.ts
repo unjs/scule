@@ -19,11 +19,16 @@ describe("splitByCase", () => {
     ["fooBar", ["foo", "Bar"]],
     ["FooBarBaz", ["Foo", "Bar", "Baz"]],
     ["FooBARb", ["Foo", "BA", "Rb"]],
-    ["foo_bar-baz/qux", ["foo", "bar", "baz", "qux"]],
+    ["foo_bar-baz/qux quux", ["foo", "bar", "baz", "qux", "quux"]],
     ["foo--bar-Baz", ["foo", "", "bar", "Baz"]],
     ["FOO_BAR", ["FOO", "BAR"]],
     ["foo123-bar", ["foo123", "bar"]],
     ["FOOBar", ["FOO", "Bar"]],
+    ["FOO BAR", ["FOO", "BAR"]],
+    ["foO BAR", ["fo", "O", "BAR"]],
+    ["Foo BAR", ["Foo", "BAR"]],
+    ["Foo bAR", ["Foo", "b", "AR"]],
+    ["FOO Bar", ["FOO", "Bar"]],
     ["ALink", ["A", "Link"]],
     // with custom splitters
     [
