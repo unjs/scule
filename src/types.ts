@@ -145,6 +145,17 @@ export type SnakeCase<T extends string | readonly string[]> = JoinByCase<
   "_"
 >;
 
+type JoinCapitalizedWords<
+  T extends readonly string[],
+  Joiner extends string,
+  Accumulator extends string = "",
+  Normalize extends boolean | undefined = false,
+> = T extends readonly [infer F extends string, ...infer R extends string[]]
+  ? Accumulator extends ""
+    ? JoinCapitalizedWords<R, Joiner, Capitalize<Normalize extends true ? Lowercase<F> : F>, Normalize>
+    : JoinCapitalizedWords<R, Joiner, `${Accumulator}${Joiner}${Capitalize<Normalize extends true ? Lowercase<F> : F>}`, Normalize>
+  : Accumulator;
+
 export type TrainCase<
   T,
   Normalize extends boolean | undefined = false,
@@ -155,10 +166,10 @@ export type TrainCase<
     ? string
     : T extends string
       ? SplitByCase<T> extends readonly string[]
-        ? CapitalizedWords<SplitByCase<T>, Joiner>
+        ? JoinCapitalizedWords<SplitByCase<T>, Joiner, "", Normalize>
         : never
       : T extends readonly string[]
-        ? CapitalizedWords<T, Joiner, Normalize>
+        ? JoinCapitalizedWords<T, Joiner, "", Normalize>
         : never;
 
 export type FlatCase<
