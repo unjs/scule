@@ -140,8 +140,14 @@ describe("titleCase", () => {
     ["foo", "Foo"],
     ["foo-bar", "Foo Bar"],
     ["this-IS-aTitle", "This is a Title"],
+    ["Hello World", "Hello World"],
+    ["Hello  World", "Hello World"],
   ])("%s => %s", (input, expected) => {
     expect(titleCase(input)).toMatchObject(expected);
+  });
+
+  test("titleCase is idempotent", () => {
+    expect(titleCase(titleCase("Hello World"))).toBe("Hello World");
   });
 });
 

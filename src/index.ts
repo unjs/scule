@@ -185,6 +185,7 @@ export function titleCase<
   UserCaseOptions extends CaseOptions = CaseOptions,
 >(str?: T, opts?: UserCaseOptions) {
   return (Array.isArray(str) ? str : splitByCase(str as string))
+    .map((p) => p.trim())
     .filter(Boolean)
     .map((p) =>
       titleCaseExceptions.test(p)
