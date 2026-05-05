@@ -113,10 +113,25 @@ export function camelCase<
   T extends string | readonly string[],
   UserCaseOptions extends CaseOptions = CaseOptions,
 >(str?: T, opts?: UserCaseOptions) {
-  return lowerFirst(pascalCase(str || "", opts)) as CamelCase<
-    T,
-    UserCaseOptions["normalize"]
-  >;
+  const words = Array.isArray(str) ? str : splitByCase((str || "") as string);
+  if (words.length === 0) {
+    return "" as CamelCase<T, UserCaseOptions["normalize"]>;
+  }
+  // If every word is all-uppercase (SCREAMING_SNAKE_CASE), the acronym
+  // boundaries are ambiguous — normalize all words (e.g. MY_API_KEY → myApiKey).
+  // Otherwise preserve the author's casing intent and only fix the leading
+  // all-uppercase word (e.g. APIBaseURL → apiBaseURL, parseXML → parseXML).
+  const allScreaming = words.every((w) => /^[A-Z]+$/.test(w));
+  return words
+    .map((p, i) => {
+      if (i === 0) {
+        return allScreaming || /^[A-Z]+$/.test(p)
+          ? p.toLowerCase()
+          : lowerFirst(p);
+      }
+      return upperFirst(allScreaming || opts?.normalize ? p.toLowerCase() : p);
+    })
+    .join("") as CamelCase<T, UserCaseOptions["normalize"]>;
 }
 
 export function kebabCase(): "";
