@@ -59,8 +59,34 @@ describe("camelCase", () => {
   test.each([
     ["FooBarBaz", "fooBarBaz"],
     ["FOO_BAR", "fooBar"],
-  ])("%s => %s", (input, expected) => {
+  ])("%s => %s (normalize)", (input, expected) => {
     expect(camelCase(input, { normalize: true })).toMatchObject(expected);
+  });
+
+  test.each([
+    // leading acronym — fully lowercased
+    ["APIBaseURL", "apiBaseURL"],
+    ["XMLParser", "xmlParser"],
+    ["HTTPSResponse", "httpsResponse"],
+    ["API_Base_URL", "apiBaseURL"],
+    // SCREAMING_SNAKE_CASE — normalized (boundaries ambiguous)
+    ["API_BASE_URL", "apiBaseUrl"],
+    ["MY_API_KEY", "myApiKey"],
+    ["FOO_BAR", "fooBar"],
+    // mixed-case — author intent preserved
+    ["parseXML", "parseXML"],
+    ["myAPIKey", "myAPIKey"],
+    ["getHTTPSResponse", "getHTTPSResponse"],
+    ["fooBAR", "fooBAR"],
+    // basic cases
+    ["", ""],
+    ["fooBar", "fooBar"],
+    ["FooBar", "fooBar"],
+    ["FOOBar", "fooBar"],
+    ["foo_bar", "fooBar"],
+    ["foo-bar", "fooBar"],
+  ])("%s => %s", (input, expected) => {
+    expect(camelCase(input)).toMatchObject(expected);
   });
 });
 
