@@ -185,10 +185,12 @@ export function titleCase<
   T extends string | readonly string[],
   UserCaseOptions extends CaseOptions = CaseOptions,
 >(str?: T, opts?: UserCaseOptions) {
-  return (Array.isArray(str) ? str : splitByCase(str as string))
+  return (
+    Array.isArray(str) ? str : splitByCase(str as string, KEBAB_SPLITTERS)
+  )
     .filter(Boolean)
-    .map((p) =>
-      titleCaseExceptions.test(p)
+    .map((p, index) =>
+      index > 0 && titleCaseExceptions.test(p)
         ? p.toLowerCase()
         : upperFirst(opts?.normalize ? p.toLowerCase() : p),
     )
