@@ -74,6 +74,7 @@ describe("kebabCase", () => {
     ["FooBAR", "foo-bar"],
     ["ALink", "a-link"],
     ["FOO_BAR", "foo-bar"],
+    ["A string with Spaces", "a-string-with-spaces"],
   ])("%s => %s", (input, expected) => {
     expect(kebabCase(input)).toMatchObject(expected);
   });

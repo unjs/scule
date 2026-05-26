@@ -11,6 +11,7 @@ import type {
 
 const NUMBER_CHAR_RE = /\d/;
 const STR_SPLITTERS = ["-", "_", "/", "."] as const;
+const KEBAB_SPLITTERS = [...STR_SPLITTERS, " "] as const;
 
 export function isUppercase(char = ""): boolean | undefined {
   if (NUMBER_CHAR_RE.test(char)) {
@@ -132,7 +133,7 @@ export function kebabCase<
   Joiner extends string,
 >(str?: T, joiner?: Joiner) {
   return str
-    ? ((Array.isArray(str) ? str : splitByCase(str as string))
+    ? ((Array.isArray(str) ? str : splitByCase(str as string, KEBAB_SPLITTERS))
         .map((p) => p.toLowerCase())
         .join(joiner ?? "-") as KebabCase<T, Joiner>)
     : "";
