@@ -11,6 +11,7 @@ import type {
 
 const NUMBER_CHAR_RE = /\d/;
 const STR_SPLITTERS = ["-", "_", "/", "."] as const;
+const KEBAB_SPLITTERS = [...STR_SPLITTERS, " "] as const;
 
 export function isUppercase(char = ""): boolean | undefined {
   if (NUMBER_CHAR_RE.test(char)) {
@@ -184,10 +185,12 @@ export function titleCase<
   T extends string | readonly string[],
   UserCaseOptions extends CaseOptions = CaseOptions,
 >(str?: T, opts?: UserCaseOptions) {
-  return (Array.isArray(str) ? str : splitByCase(str as string))
+  return (
+    Array.isArray(str) ? str : splitByCase(str as string, KEBAB_SPLITTERS)
+  )
     .filter(Boolean)
-    .map((p) =>
-      titleCaseExceptions.test(p)
+    .map((p, index) =>
+      index > 0 && titleCaseExceptions.test(p)
         ? p.toLowerCase()
         : upperFirst(opts?.normalize ? p.toLowerCase() : p),
     )
