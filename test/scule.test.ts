@@ -140,8 +140,21 @@ describe("titleCase", () => {
     ["foo", "Foo"],
     ["foo-bar", "Foo Bar"],
     ["this-IS-aTitle", "This is a Title"],
+    // whitespace is a word boundary and must not be duplicated
+    // https://github.com/unjs/scule/issues/96
+    ["Hello World", "Hello World"],
+    ["hello world", "Hello World"],
+    ["Hello  World", "Hello World"],
+    [" hello world ", "Hello World"],
+    ["tale of two cities", "Tale of Two Cities"],
   ])("%s => %s", (input, expected) => {
     expect(titleCase(input)).toMatchObject(expected);
+  });
+
+  test("is idempotent", () => {
+    // The pre-fix implementation returned "Hello  World" here, so a second pass
+    // is what actually regresses if whitespace stops being a boundary.
+    expect(titleCase(titleCase("Hello World"))).toBe("Hello World");
   });
 });
 
