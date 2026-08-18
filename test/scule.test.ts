@@ -152,8 +152,9 @@ describe("titleCase", () => {
   });
 
   test("is idempotent", () => {
-    const input = "hello big world";
-    expect(titleCase(titleCase(input))).toBe(titleCase(input));
+    // The pre-fix implementation returned "Hello  World" here, so a second pass
+    // is what actually regresses if whitespace stops being a boundary.
+    expect(titleCase(titleCase("Hello World"))).toBe("Hello World");
   });
 });
 
