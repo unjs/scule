@@ -25,6 +25,7 @@ describe("splitByCase", () => {
     ["foo123-bar", ["foo123", "bar"]],
     ["FOOBar", ["FOO", "Bar"]],
     ["ALink", ["A", "Link"]],
+    ["A string with Spaces", ["A", "string", "with", "Spaces"]],
     // with custom splitters
     [
       "foo\\Bar.fuzz-FIZz",
@@ -74,6 +75,7 @@ describe("kebabCase", () => {
     ["FooBAR", "foo-bar"],
     ["ALink", "a-link"],
     ["FOO_BAR", "foo-bar"],
+    ["A string with Spaces", "a-string-with-spaces"],
   ])("%s => %s", (input, expected) => {
     expect(kebabCase(input)).toMatchObject(expected);
   });
