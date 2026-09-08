@@ -17,11 +17,17 @@ type CapitalizedWords<
   T extends readonly string[],
   Accumulator extends string = "",
   Normalize extends boolean | undefined = false,
+  Joiner extends string = "",
 > = T extends readonly [infer F extends string, ...infer R extends string[]]
   ? CapitalizedWords<
       R,
-      `${Accumulator}${Capitalize<Normalize extends true ? Lowercase<F> : F>}`,
-      Normalize
+      F extends ""
+        ? Accumulator
+        : `${Accumulator}${Accumulator extends "" ? "" : Joiner}${Capitalize<
+            Normalize extends true ? Lowercase<F> : F
+          >}`,
+      Normalize,
+      Joiner
     >
   : Accumulator;
 type JoinLowercaseWords<
@@ -155,10 +161,10 @@ export type TrainCase<
     ? string
     : T extends string
       ? SplitByCase<T> extends readonly string[]
-        ? CapitalizedWords<SplitByCase<T>, Joiner>
+        ? CapitalizedWords<SplitByCase<T>, "", Normalize, Joiner>
         : never
       : T extends readonly string[]
-        ? CapitalizedWords<T, Joiner, Normalize>
+        ? CapitalizedWords<T, "", Normalize, Joiner>
         : never;
 
 export type FlatCase<

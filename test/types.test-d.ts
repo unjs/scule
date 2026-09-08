@@ -4,7 +4,9 @@ import type {
   PascalCase,
   CamelCase,
   JoinByCase,
+  TrainCase,
 } from "../src/types";
+import { trainCase, titleCase } from "../src";
 
 describe("SplitByCase", () => {
   test("types", () => {
@@ -76,6 +78,39 @@ describe("CamelCase", () => {
 
   test("array", () => {
     assertType<CamelCase<["Foo", "Bar"], true>>("fooBar");
+  });
+});
+
+describe("TrainCase", () => {
+  test("types", () => {
+    expectTypeOf<TrainCase<string>>().toEqualTypeOf<string>();
+    expectTypeOf<TrainCase<string[]>>().toEqualTypeOf<string>();
+  });
+
+  test("string", () => {
+    assertType<TrainCase<"">>("");
+    assertType<TrainCase<"foo">>("Foo");
+    assertType<TrainCase<"fooBar">>("Foo-Bar");
+    assertType<TrainCase<"foo_bar-baz/qux">>("Foo-Bar-Baz-Qux");
+    assertType<TrainCase<"foo--bar-Baz">>("Foo-Bar-Baz");
+    assertType<TrainCase<"FOO_BAR", true>>("Foo-Bar");
+  });
+
+  test("array", () => {
+    assertType<TrainCase<["foo", "Bar"]>>("Foo-Bar");
+  });
+
+  test("custom joiner", () => {
+    assertType<TrainCase<"fooBar", false, " ">>("Foo Bar");
+  });
+
+  test("matches runtime", () => {
+    expectTypeOf(trainCase("fooBar")).toEqualTypeOf<"Foo-Bar">();
+    expectTypeOf(trainCase("foo--bar-Baz")).toEqualTypeOf<"Foo-Bar-Baz">();
+    expectTypeOf(
+      trainCase("FOO_BAR", { normalize: true }),
+    ).toEqualTypeOf<"Foo-Bar">();
+    expectTypeOf(titleCase("fooBar")).toEqualTypeOf<"Foo Bar">();
   });
 });
 
