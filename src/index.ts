@@ -191,7 +191,7 @@ export function titleCase<
         ? p.toLowerCase()
         : upperFirst(opts?.normalize ? p.toLowerCase() : p),
     )
-    .join(" ") as TrainCase<T, UserCaseOptions["normalize"]>;
+    .join(" ") as TrainCase<T, UserCaseOptions["normalize"], " ">;
 }
 
 export * from "./types";
