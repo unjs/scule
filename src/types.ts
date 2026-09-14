@@ -41,6 +41,7 @@ type RemoveLastOfArray<T extends any[]> = T extends [...infer F, any]
 
 export type CaseOptions = {
   normalize?: boolean;
+  locale?: string | string[];
 };
 
 export type SplitByCase<
@@ -165,3 +166,8 @@ export type FlatCase<
   T extends string | readonly string[],
   Joiner extends string = "",
 > = JoinByCase<T, Joiner>;
+
+export type CapitalCase<
+  T,
+  Normalize extends boolean | undefined = false,
+> = TrainCase<T, Normalize, " ">;

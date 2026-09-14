@@ -4,12 +4,14 @@ import {
   pascalCase,
   kebabCase,
   camelCase,
+  capitalCase,
   upperFirst,
   lowerFirst,
   snakeCase,
   trainCase,
   flatCase,
   titleCase,
+  isUppercase,
 } from "../src";
 
 describe("splitByCase", () => {
@@ -41,6 +43,21 @@ describe("splitByCase", () => {
   });
 });
 
+describe("isUppercase", () => {
+  test.each([
+    ["A", undefined, true],
+    ["a", undefined, false],
+    ["1", undefined, undefined],
+    ["", undefined, false],
+    ["İ", "tr", true],
+    ["I", "tr", true],
+    ["i", "tr", false],
+    ["ı", "tr", false],
+  ])("%s (locale: %s) => %s", (char, locale, expected) => {
+    expect(isUppercase(char, locale)).toBe(expected);
+  });
+});
+
 describe("pascalCase", () => {
   test.each([
     ["", ""],
@@ -53,14 +70,65 @@ describe("pascalCase", () => {
   ])("%s => %s", (input, expected) => {
     expect(pascalCase(input, { normalize: true })).toMatchObject(expected);
   });
+
+  test("locale", () => {
+    expect(pascalCase("ibrahim-yılmaz", "tr")).toBe("İbrahimYılmaz");
+    expect(pascalCase("ibrahim-yılmaz", { locale: "tr" })).toBe(
+      "İbrahimYılmaz",
+    );
+    expect(
+      pascalCase("İBRAHİM-YILMAZ", { normalize: true, locale: "tr" }),
+    ).toBe("İbrahimYılmaz");
+    expect(pascalCase("ibrahim-yılmaz", ["tr-TR", "tr"])).toBe("İbrahimYılmaz");
+    expect(pascalCase("ibrahim-yılmaz")).toBe("IbrahimYılmaz");
+  });
 });
 
 describe("camelCase", () => {
   test.each([
+    ["", ""],
     ["FooBarBaz", "fooBarBaz"],
     ["FOO_BAR", "fooBar"],
   ])("%s => %s", (input, expected) => {
     expect(camelCase(input, { normalize: true })).toMatchObject(expected);
+  });
+
+  test("locale", () => {
+    expect(camelCase("ibrahim-yılmaz", "tr")).toBe("ibrahimYılmaz");
+    expect(camelCase("İbrahim-yılmaz", "tr")).toBe("ibrahimYılmaz");
+    expect(camelCase("İbrahim-yılmaz", { locale: "tr" })).toBe("ibrahimYılmaz");
+    expect(camelCase("İBRAHİM-YILMAZ", { normalize: true, locale: "tr" })).toBe(
+      "ibrahimYılmaz",
+    );
+    expect(camelCase("IĞDIR-YILMAZ", { normalize: true, locale: "tr" })).toBe(
+      "ığdırYılmaz",
+    );
+  });
+});
+
+describe("capitalCase", () => {
+  test.each([
+    ["", ""],
+    ["foo", "Foo"],
+    ["foo-bAr", "Foo B Ar"],
+    ["FooBARb", "Foo Ba Rb"],
+    ["foo_bar-baz/qux", "Foo Bar Baz Qux"],
+    ["FOO_BAR", "Foo Bar"],
+    ["foo--bar-Baz", "Foo Bar Baz"],
+  ])("%s => %s", (input, expected) => {
+    expect(capitalCase(input, { normalize: true })).toMatchObject(expected);
+  });
+
+  test("issue #91: locale support", () => {
+    expect(capitalCase("benim.adım.ibrahim.yılmaz", "tr")).toBe(
+      "Benim Adım İbrahim Yılmaz",
+    );
+    expect(capitalCase("benim.adım.ibrahim.yılmaz", { locale: "tr" })).toBe(
+      "Benim Adım İbrahim Yılmaz",
+    );
+    expect(capitalCase("benim.adım.ibrahim.yılmaz")).toBe(
+      "Benim Adım Ibrahim Yılmaz",
+    );
   });
 });
 
@@ -77,14 +145,30 @@ describe("kebabCase", () => {
   ])("%s => %s", (input, expected) => {
     expect(kebabCase(input)).toMatchObject(expected);
   });
+
+  test("locale", () => {
+    expect(kebabCase("İSTANBUL_IĞDIR", { locale: "tr" })).toBe(
+      "istanbul-ığdır",
+    );
+    expect(kebabCase("İSTANBUL_IĞDIR", ["tr"])).toBe("istanbul-ığdır");
+    expect(kebabCase("İSTANBUL_IĞDIR", "-", "tr")).toBe("istanbul-ığdır");
+  });
 });
 
 describe("snakeCase", () => {
   test.each([
+    ["", ""],
     ["FooBarBaz", "foo_bar_baz"],
     ["FOO_BAR", "foo_bar"],
   ])("%s => %s", (input, expected) => {
     expect(snakeCase(input)).toMatchObject(expected);
+  });
+
+  test("locale", () => {
+    expect(snakeCase("İSTANBUL-IĞDIR", "tr")).toBe("istanbul_ığdır");
+    expect(snakeCase("İSTANBUL-IĞDIR", { locale: "tr" })).toBe(
+      "istanbul_ığdır",
+    );
   });
 });
 
@@ -96,6 +180,13 @@ describe("upperFirst", () => {
   ])("%s => %s", (input, expected) => {
     expect(upperFirst(input)).toMatchObject(expected);
   });
+
+  test("locale", () => {
+    expect(upperFirst("istanbul", "tr")).toBe("İstanbul");
+    expect(upperFirst("istanbul", { locale: "tr" })).toBe("İstanbul");
+    expect(upperFirst("istanbul", ["tr-TR", "tr"])).toBe("İstanbul");
+    expect(upperFirst("istanbul")).toBe("Istanbul");
+  });
 });
 
 describe("lowerFirst", () => {
@@ -105,6 +196,13 @@ describe("lowerFirst", () => {
     ["Foo", "foo"],
   ])("%s => %s", (input, expected) => {
     expect(lowerFirst(input)).toMatchObject(expected);
+  });
+
+  test("locale", () => {
+    expect(lowerFirst("İstanbul", "tr")).toBe("istanbul");
+    expect(lowerFirst("İstanbul", { locale: "tr" })).toBe("istanbul");
+    expect(lowerFirst("Iğdır", "tr")).toBe("ığdır");
+    expect(lowerFirst("Iğdır")).toBe("iğdır");
   });
 });
 
@@ -131,6 +229,14 @@ describe("trainCase", () => {
   ])("%s => %s", (input, expected) => {
     expect(trainCase(input, { normalize: true })).toMatchObject(expected);
   });
+
+  test("locale", () => {
+    expect(trainCase("ibrahim-yılmaz", "tr")).toBe("İbrahim-Yılmaz");
+    expect(trainCase("ibrahim-yılmaz", { locale: "tr" })).toBe(
+      "İbrahim-Yılmaz",
+    );
+    expect(trainCase("ibrahim-yılmaz")).toBe("Ibrahim-Yılmaz");
+  });
 });
 
 describe("titleCase", () => {
@@ -142,6 +248,14 @@ describe("titleCase", () => {
     ["this-IS-aTitle", "This is a Title"],
   ])("%s => %s", (input, expected) => {
     expect(titleCase(input)).toMatchObject(expected);
+  });
+
+  test("locale", () => {
+    expect(titleCase("ibrahim-ve-ismail", "tr")).toBe("İbrahim Ve İsmail");
+    expect(titleCase("ibrahim-ve-ismail", { locale: "tr" })).toBe(
+      "İbrahim Ve İsmail",
+    );
+    expect(titleCase("ibrahim-ve-ismail")).toBe("Ibrahim Ve Ismail");
   });
 });
 
@@ -156,5 +270,23 @@ describe("flatCase", () => {
     ["foo--bar-Baz", "foobarbaz"],
   ])("%s => %s", (input, expected) => {
     expect(flatCase(input)).toMatchObject(expected);
+  });
+
+  test("locale", () => {
+    expect(flatCase("İSTANBUL-IĞDIR", "tr")).toBe("istanbulığdır");
+    expect(flatCase("İSTANBUL-IĞDIR", { locale: "tr" })).toBe("istanbulığdır");
+  });
+});
+
+describe("empty / no arguments", () => {
+  test("returns empty string", () => {
+    expect(pascalCase()).toBe("");
+    expect(camelCase()).toBe("");
+    expect(capitalCase()).toBe("");
+    expect(kebabCase()).toBe("");
+    expect(snakeCase()).toBe("");
+    expect(flatCase()).toBe("");
+    expect(trainCase()).toBe("");
+    expect(titleCase()).toBe("");
   });
 });
