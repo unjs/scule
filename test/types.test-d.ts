@@ -4,6 +4,7 @@ import type {
   PascalCase,
   CamelCase,
   JoinByCase,
+  CapitalCase,
 } from "../src/types";
 
 describe("SplitByCase", () => {
@@ -94,5 +95,12 @@ describe("JoinByCase", () => {
 
   test("array", () => {
     assertType<JoinByCase<["Foo", "Bar"], "-">>("foo-bar");
+  });
+});
+
+describe("CapitalCase", () => {
+  test("types", () => {
+    expectTypeOf<CapitalCase<string, true>>().toEqualTypeOf<string>();
+    expectTypeOf<CapitalCase<string[], true>>().toEqualTypeOf<string>();
   });
 });

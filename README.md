@@ -89,7 +89,7 @@ trainCase("FooBARb");
 
 **Notice:** If an uppercase letter is followed by other uppercase letters (like `WWWAuthenticate`), they are preserved (=> `WWW-Authenticate`). You can use `{ normalize: true }` for strictly only having the first letter uppercased.
 
-### `titleCase(str, opts?: { normalize })`
+### `titleCase(str, opts?: { normalize, locale })`
 
 With Title Case all words are capitalized, except for minor words.
 A compact regex of common minor words (such as `a`, `for`, `to`) is used to automatically keep them lower case.
@@ -99,7 +99,16 @@ titleCase("this-IS-aTitle");
 // This is a Title
 ```
 
-### `upperFirst(str)`
+### `capitalCase(str, opts?: { normalize, locale })`
+
+Splits string and joins words with a space, with each word capitalized:
+
+```ts
+capitalCase("foo-bar_baz");
+// Foo Bar Baz
+```
+
+### `upperFirst(str, locale?)`
 
 Converts first character to upper case:
 
@@ -108,7 +117,7 @@ upperFirst("hello world!");
 // Hello world!
 ```
 
-### `lowerFirst(str)`
+### `lowerFirst(str, locale?)`
 
 Converts first character to lower case:
 
