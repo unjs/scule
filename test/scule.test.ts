@@ -58,8 +58,19 @@ describe("pascalCase", () => {
 describe("camelCase", () => {
   test.each([
     ["FooBarBaz", "fooBarBaz"],
-    ["FOO_BAR", "fooBar"],
+    ["APIBaseURL", "apiBaseURL"],
+    ["XMLParser", "xmlParser"],
+    ["HTTPSResponse", "httpsResponse"],
   ])("%s => %s", (input, expected) => {
+    expect(camelCase(input)).toMatchObject(expected);
+  });
+
+  test.each([
+    ["FooBarBaz", "fooBarBaz"],
+    ["FOO_BAR", "fooBar"],
+    ["API_Base_URL", "apiBaseUrl"],
+    ["MY_API_KEY", "myApiKey"],
+  ])("%s (normalized) => %s", (input, expected) => {
     expect(camelCase(input, { normalize: true })).toMatchObject(expected);
   });
 });
