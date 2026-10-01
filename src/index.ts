@@ -113,7 +113,23 @@ export function camelCase<
   T extends string | readonly string[],
   UserCaseOptions extends CaseOptions = CaseOptions,
 >(str?: T, opts?: UserCaseOptions) {
-  return lowerFirst(pascalCase(str || "", opts)) as CamelCase<
+  if (!str) {
+    return "";
+  }
+  const rawParts = Array.isArray(str) ? str : splitByCase(str as string);
+  const parts = rawParts.filter(Boolean);
+  if (parts.length === 0) {
+    return "";
+  }
+  const [first = "", ...rest] = parts;
+  const firstFormatted =
+    opts?.normalize || first === first.toUpperCase()
+      ? first.toLowerCase()
+      : lowerFirst(first);
+  const restFormatted = rest.map((p) =>
+    upperFirst(opts?.normalize ? p.toLowerCase() : p),
+  );
+  return (firstFormatted + restFormatted.join("")) as CamelCase<
     T,
     UserCaseOptions["normalize"]
   >;

@@ -24,6 +24,14 @@ type CapitalizedWords<
       Normalize
     >
   : Accumulator;
+type CamelCaseWords<
+  T extends readonly string[],
+  Normalize extends boolean | undefined = false,
+> = T extends readonly [infer F extends string, ...infer R extends string[]]
+  ? F extends ""
+    ? CamelCaseWords<R, Normalize>
+    : `${Normalize extends true ? Lowercase<F> : F extends Uppercase<F> ? Lowercase<F> : Uncapitalize<F>}${CapitalizedWords<R, "", Normalize>}`
+  : "";
 type JoinLowercaseWords<
   T extends readonly string[],
   Joiner extends string,
@@ -133,7 +141,13 @@ export type CamelCase<
   ? string
   : string[] extends T
     ? string
-    : Uncapitalize<PascalCase<T, Normalize>>;
+    : T extends string
+      ? SplitByCase<T> extends readonly string[]
+        ? CamelCaseWords<SplitByCase<T>, Normalize>
+        : never
+      : T extends readonly string[]
+        ? CamelCaseWords<T, Normalize>
+        : never;
 
 export type KebabCase<
   T extends string | readonly string[],
