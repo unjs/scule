@@ -72,10 +72,14 @@ describe("CamelCase", () => {
     assertType<CamelCase<"FooBARb", true>>("fooBaRb");
     assertType<CamelCase<"foo_bar-baz/qux", true>>("fooBarBazQux");
     assertType<CamelCase<"FOO_BAR", true>>("fooBar");
+    assertType<CamelCase<"APIBaseURL">>("apiBaseURL");
+    assertType<CamelCase<"APIBaseURL", true>>("apiBaseUrl");
   });
 
   test("array", () => {
     assertType<CamelCase<["Foo", "Bar"], true>>("fooBar");
+    assertType<CamelCase<["fooBar", "Baz"]>>("fooBarBaz");
+    assertType<CamelCase<["API", "Base", "URL"]>>("apiBaseURL");
   });
 });
 
