@@ -60,12 +60,14 @@ export function splitByCase<
         continue;
       }
       // Case falling edge
-      if (previousUpper === true && isUpper === false && buff.length > 1) {
-        const lastChar = buff.at(-1);
-        parts.push(buff.slice(0, Math.max(0, buff.length - 1)));
-        buff = lastChar + char;
-        previousUpper = isUpper;
-        continue;
+      if (previousUpper === true && isUpper === false) {
+        const lastChar = [...buff].at(-1)!;
+        if (buff.length > lastChar.length) {
+          parts.push(buff.slice(0, -lastChar.length));
+          buff = lastChar + char;
+          previousUpper = isUpper;
+          continue;
+        }
       }
     }
 

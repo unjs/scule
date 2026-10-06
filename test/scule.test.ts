@@ -158,3 +158,14 @@ describe("flatCase", () => {
     expect(flatCase(input)).toMatchObject(expected);
   });
 });
+
+describe("splitByCase astral case boundaries", () => {
+  test.each([
+    ["𐐀foo", ["𐐀foo"]],
+    ["𐐀𐐁foo", ["𐐀", "𐐁foo"]],
+    ["A𐐀foo", ["A", "𐐀foo"]],
+    ["foo𐐀bar", ["foo", "𐐀bar"]],
+  ])("keeps Unicode code points intact in %s", (input, expected) => {
+    expect(splitByCase(input as string)).toEqual(expected);
+  });
+});
