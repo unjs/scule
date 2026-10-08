@@ -91,11 +91,11 @@ export function lowerFirst<S extends string>(str: S): Uncapitalize<S> {
 export function pascalCase(): "";
 export function pascalCase<
   T extends string | readonly string[],
-  UserCaseOptions extends CaseOptions = CaseOptions,
->(str: T, opts?: CaseOptions): PascalCase<T, UserCaseOptions["normalize"]>;
+  UserCaseOptions extends CaseOptions = { normalize: false },
+>(str: T, opts?: UserCaseOptions): PascalCase<T, UserCaseOptions["normalize"]>;
 export function pascalCase<
   T extends string | readonly string[],
-  UserCaseOptions extends CaseOptions = CaseOptions,
+  UserCaseOptions extends CaseOptions = { normalize: false },
 >(str?: T, opts?: UserCaseOptions) {
   return str
     ? ((Array.isArray(str) ? str : splitByCase(str as string))
@@ -107,11 +107,11 @@ export function pascalCase<
 export function camelCase(): "";
 export function camelCase<
   T extends string | readonly string[],
-  UserCaseOptions extends CaseOptions = CaseOptions,
+  UserCaseOptions extends CaseOptions = { normalize: false },
 >(str: T, opts?: UserCaseOptions): CamelCase<T, UserCaseOptions["normalize"]>;
 export function camelCase<
   T extends string | readonly string[],
-  UserCaseOptions extends CaseOptions = CaseOptions,
+  UserCaseOptions extends CaseOptions = { normalize: false },
 >(str?: T, opts?: UserCaseOptions) {
   return lowerFirst(pascalCase(str || "", opts)) as CamelCase<
     T,
