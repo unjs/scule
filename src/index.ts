@@ -184,10 +184,14 @@ export function titleCase<
   T extends string | readonly string[],
   UserCaseOptions extends CaseOptions = CaseOptions,
 >(str?: T, opts?: UserCaseOptions) {
-  return (Array.isArray(str) ? str : splitByCase(str as string))
+  return (
+    Array.isArray(str)
+      ? str
+      : splitByCase(str as string, [...STR_SPLITTERS, " "])
+  )
     .filter(Boolean)
-    .map((p) =>
-      titleCaseExceptions.test(p)
+    .map((p, i) =>
+      i > 0 && titleCaseExceptions.test(p)
         ? p.toLowerCase()
         : upperFirst(opts?.normalize ? p.toLowerCase() : p),
     )
