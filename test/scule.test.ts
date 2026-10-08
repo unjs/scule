@@ -141,13 +141,17 @@ describe("titleCase", () => {
     ["foo-bar", "Foo Bar"],
     ["this-IS-aTitle", "This is a Title"],
     ["in-world", "In World"],
+    ["in world", "In World"],
     ["inWorld", "In World"],
     ["and-then", "And Then"],
+    ["and then", "And Then"],
     ["andThen", "And Then"],
     [["in", "world"], "In World"],
     [["and", "then"], "And Then"],
     ["the-quick-brown-fox-and-the-dog", "The Quick Brown Fox and the Dog"],
+    ["the quick brown fox and the dog", "The Quick Brown Fox and the Dog"],
     ["a-tale-of-two-cities", "A Tale of Two Cities"],
+    ["a tale of two cities", "A Tale of Two Cities"],
   ])("%s => %s", (input, expected) => {
     expect(titleCase(input)).toMatchObject(expected);
   });
