@@ -38,6 +38,11 @@ describe("SplitByCase", () => {
 });
 
 describe("PascalCase", () => {
+  test("accept options with an explicit input type", () => {
+    pascalCase<"FOO_BAR">("FOO_BAR", { normalize: true });
+    pascalCase<"FOO_BAR">("FOO_BAR", { normalize: false });
+    pascalCase<"FOO_BAR">("FOO_BAR", {});
+  });
   test("infer normalization options", () => {
     expectTypeOf(
       pascalCase("FOO_BAR", { normalize: true }),
@@ -74,6 +79,11 @@ describe("PascalCase", () => {
 });
 
 describe("CamelCase", () => {
+  test("accept options with an explicit input type", () => {
+    camelCase<"FOO_BAR">("FOO_BAR", { normalize: true });
+    camelCase<"FOO_BAR">("FOO_BAR", { normalize: false });
+    camelCase<"FOO_BAR">("FOO_BAR", {});
+  });
   test("infer normalization options", () => {
     expectTypeOf(
       camelCase("FOO_BAR", { normalize: true }),
