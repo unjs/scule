@@ -1,4 +1,5 @@
 import { describe, test, assertType, expectTypeOf } from "vitest";
+import { pascalCase, camelCase } from "../src";
 import type {
   SplitByCase,
   PascalCase,
@@ -37,6 +38,29 @@ describe("SplitByCase", () => {
 });
 
 describe("PascalCase", () => {
+  test("accept options with an explicit input type", () => {
+    expectTypeOf(
+      pascalCase<"FOO_BAR">("FOO_BAR", { normalize: true }),
+    ).toEqualTypeOf<"FooBar">();
+    expectTypeOf(
+      pascalCase<"FOO_BAR">("FOO_BAR", { normalize: false }),
+    ).toEqualTypeOf<"FOOBAR">();
+    expectTypeOf(
+      pascalCase<"FOO_BAR">("FOO_BAR", {}),
+    ).toEqualTypeOf<"FOOBAR">();
+  });
+  test("infer normalization options", () => {
+    expectTypeOf(
+      pascalCase("FOO_BAR", { normalize: true }),
+    ).toEqualTypeOf<"FooBar">();
+    expectTypeOf(
+      pascalCase("FOO_BAR", { normalize: false }),
+    ).toEqualTypeOf<"FOOBAR">();
+    expectTypeOf(pascalCase("FOO_BAR")).toEqualTypeOf<"FOOBAR">();
+    expectTypeOf(
+      pascalCase(["FOO", "BAR"] as const, { normalize: true }),
+    ).toEqualTypeOf<"FooBar">();
+  });
   test("types", () => {
     expectTypeOf<PascalCase<string, true>>().toEqualTypeOf<string>();
     expectTypeOf<PascalCase<string[], true>>().toEqualTypeOf<string>();
@@ -61,6 +85,27 @@ describe("PascalCase", () => {
 });
 
 describe("CamelCase", () => {
+  test("accept options with an explicit input type", () => {
+    expectTypeOf(
+      camelCase<"FOO_BAR">("FOO_BAR", { normalize: true }),
+    ).toEqualTypeOf<"fooBar">();
+    expectTypeOf(
+      camelCase<"FOO_BAR">("FOO_BAR", { normalize: false }),
+    ).toEqualTypeOf<"fOOBAR">();
+    expectTypeOf(camelCase<"FOO_BAR">("FOO_BAR", {})).toEqualTypeOf<"fOOBAR">();
+  });
+  test("infer normalization options", () => {
+    expectTypeOf(
+      camelCase("FOO_BAR", { normalize: true }),
+    ).toEqualTypeOf<"fooBar">();
+    expectTypeOf(
+      camelCase("FOO_BAR", { normalize: false }),
+    ).toEqualTypeOf<"fOOBAR">();
+    expectTypeOf(camelCase("FOO_BAR")).toEqualTypeOf<"fOOBAR">();
+    expectTypeOf(
+      camelCase(["FOO", "BAR"] as const, { normalize: true }),
+    ).toEqualTypeOf<"fooBar">();
+  });
   test("types", () => {
     expectTypeOf<CamelCase<string, true>>().toEqualTypeOf<string>();
     expectTypeOf<CamelCase<string[], true>>().toEqualTypeOf<string>();
