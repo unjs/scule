@@ -95,6 +95,14 @@ export function pascalCase<
 >(str: T, opts?: UserCaseOptions): PascalCase<T, UserCaseOptions["normalize"]>;
 export function pascalCase<T extends string | readonly string[]>(
   str: T,
+  opts: { normalize: true },
+): PascalCase<T, true>;
+export function pascalCase<T extends string | readonly string[]>(
+  str: T,
+  opts?: { normalize?: false },
+): PascalCase<T, false>;
+export function pascalCase<T extends string | readonly string[]>(
+  str: T,
   opts: CaseOptions,
 ): PascalCase<T, CaseOptions["normalize"]>;
 export function pascalCase<
@@ -113,6 +121,14 @@ export function camelCase<
   T extends string | readonly string[],
   UserCaseOptions extends CaseOptions = { normalize: false },
 >(str: T, opts?: UserCaseOptions): CamelCase<T, UserCaseOptions["normalize"]>;
+export function camelCase<T extends string | readonly string[]>(
+  str: T,
+  opts: { normalize: true },
+): CamelCase<T, true>;
+export function camelCase<T extends string | readonly string[]>(
+  str: T,
+  opts?: { normalize?: false },
+): CamelCase<T, false>;
 export function camelCase<T extends string | readonly string[]>(
   str: T,
   opts: CaseOptions,

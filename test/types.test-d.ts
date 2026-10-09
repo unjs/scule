@@ -39,9 +39,15 @@ describe("SplitByCase", () => {
 
 describe("PascalCase", () => {
   test("accept options with an explicit input type", () => {
-    pascalCase<"FOO_BAR">("FOO_BAR", { normalize: true });
-    pascalCase<"FOO_BAR">("FOO_BAR", { normalize: false });
-    pascalCase<"FOO_BAR">("FOO_BAR", {});
+    expectTypeOf(
+      pascalCase<"FOO_BAR">("FOO_BAR", { normalize: true }),
+    ).toEqualTypeOf<"FooBar">();
+    expectTypeOf(
+      pascalCase<"FOO_BAR">("FOO_BAR", { normalize: false }),
+    ).toEqualTypeOf<"FOOBAR">();
+    expectTypeOf(
+      pascalCase<"FOO_BAR">("FOO_BAR", {}),
+    ).toEqualTypeOf<"FOOBAR">();
   });
   test("infer normalization options", () => {
     expectTypeOf(
@@ -80,9 +86,13 @@ describe("PascalCase", () => {
 
 describe("CamelCase", () => {
   test("accept options with an explicit input type", () => {
-    camelCase<"FOO_BAR">("FOO_BAR", { normalize: true });
-    camelCase<"FOO_BAR">("FOO_BAR", { normalize: false });
-    camelCase<"FOO_BAR">("FOO_BAR", {});
+    expectTypeOf(
+      camelCase<"FOO_BAR">("FOO_BAR", { normalize: true }),
+    ).toEqualTypeOf<"fooBar">();
+    expectTypeOf(
+      camelCase<"FOO_BAR">("FOO_BAR", { normalize: false }),
+    ).toEqualTypeOf<"fOOBAR">();
+    expectTypeOf(camelCase<"FOO_BAR">("FOO_BAR", {})).toEqualTypeOf<"fOOBAR">();
   });
   test("infer normalization options", () => {
     expectTypeOf(
