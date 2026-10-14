@@ -92,7 +92,7 @@ export function pascalCase(): "";
 export function pascalCase<
   T extends string | readonly string[],
   UserCaseOptions extends CaseOptions = CaseOptions,
->(str: T, opts?: CaseOptions): PascalCase<T, UserCaseOptions["normalize"]>;
+>(str: T, opts?: UserCaseOptions): PascalCase<T, UserCaseOptions["normalize"]>;
 export function pascalCase<
   T extends string | readonly string[],
   UserCaseOptions extends CaseOptions = CaseOptions,

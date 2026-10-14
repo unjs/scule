@@ -34,6 +34,27 @@ type JoinLowercaseWords<
     : JoinLowercaseWords<R, Joiner, `${Accumulator}${Joiner}${Lowercase<F>}`>
   : Accumulator;
 
+type JoinCapitalizedWords<
+  T extends readonly string[],
+  Joiner extends string,
+  Accumulator extends string = "",
+  Normalize extends boolean | undefined = false,
+> = T extends readonly [infer F extends string, ...infer R extends string[]]
+  ? Accumulator extends ""
+    ? JoinCapitalizedWords<
+        R,
+        Joiner,
+        `${Capitalize<Normalize extends true ? Lowercase<F> : F>}`,
+        Normalize
+      >
+    : JoinCapitalizedWords<
+        R,
+        Joiner,
+        `${Accumulator}${Joiner}${Capitalize<Normalize extends true ? Lowercase<F> : F>}`,
+        Normalize
+      >
+  : Accumulator;
+
 type LastOfArray<T extends any[]> = T extends [...any, infer R] ? R : never;
 type RemoveLastOfArray<T extends any[]> = T extends [...infer F, any]
   ? F
@@ -155,10 +176,10 @@ export type TrainCase<
     ? string
     : T extends string
       ? SplitByCase<T> extends readonly string[]
-        ? CapitalizedWords<SplitByCase<T>, Joiner>
+        ? JoinCapitalizedWords<SplitByCase<T>, Joiner, "", Normalize>
         : never
       : T extends readonly string[]
-        ? CapitalizedWords<T, Joiner, Normalize>
+        ? JoinCapitalizedWords<T, Joiner, "", Normalize>
         : never;
 
 export type FlatCase<
