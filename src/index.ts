@@ -6,6 +6,7 @@ import type {
   SplitByCase,
   CaseOptions,
   TrainCase,
+  TitleCase,
   FlatCase,
 } from "./types";
 
@@ -92,7 +93,7 @@ export function pascalCase(): "";
 export function pascalCase<
   T extends string | readonly string[],
   UserCaseOptions extends CaseOptions = CaseOptions,
->(str: T, opts?: CaseOptions): PascalCase<T, UserCaseOptions["normalize"]>;
+>(str: T, opts?: UserCaseOptions): PascalCase<T, UserCaseOptions["normalize"]>;
 export function pascalCase<
   T extends string | readonly string[],
   UserCaseOptions extends CaseOptions = CaseOptions,
@@ -176,10 +177,7 @@ export function titleCase(): "";
 export function titleCase<
   T extends string | readonly string[],
   UserCaseOptions extends CaseOptions = CaseOptions,
->(
-  str: T,
-  opts?: UserCaseOptions,
-): TrainCase<T, UserCaseOptions["normalize"], " ">;
+>(str: T, opts?: UserCaseOptions): TitleCase<T, UserCaseOptions["normalize"]>;
 export function titleCase<
   T extends string | readonly string[],
   UserCaseOptions extends CaseOptions = CaseOptions,
@@ -191,7 +189,7 @@ export function titleCase<
         ? p.toLowerCase()
         : upperFirst(opts?.normalize ? p.toLowerCase() : p),
     )
-    .join(" ") as TrainCase<T, UserCaseOptions["normalize"]>;
+    .join(" ") as TitleCase<T, UserCaseOptions["normalize"]>;
 }
 
 export * from "./types";
