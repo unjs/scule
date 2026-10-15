@@ -5,6 +5,7 @@ import type {
   CamelCase,
   JoinByCase,
   TrainCase,
+  TitleCase,
 } from "../src/types";
 import { trainCase, titleCase } from "../src/index";
 
@@ -110,6 +111,7 @@ describe("TrainCase", () => {
     assertType<TrainCase<"foo">>("Foo");
     assertType<TrainCase<"foo_bar">>("Foo-Bar");
     assertType<TrainCase<"foo-bAr">>("Foo-B-Ar");
+    assertType<TrainCase<"foo--bar-Baz">>("Foo-Bar-Baz");
     assertType<TrainCase<"FOO_BAR", true>>("Foo-Bar");
     assertType<TrainCase<"FOO_BAR", false>>("FOO-BAR");
     assertType<TrainCase<"foo_bar_baz", false, " ">>("Foo Bar Baz");
@@ -117,6 +119,7 @@ describe("TrainCase", () => {
 
   test("array", () => {
     assertType<TrainCase<["foo", "bar"]>>("Foo-Bar");
+    assertType<TrainCase<["foo", "", "bar"]>>("Foo-Bar");
     assertType<TrainCase<["FOO", "BAR"], true>>("Foo-Bar");
     assertType<TrainCase<["foo", "bar"], false, " ">>("Foo Bar");
   });
@@ -127,5 +130,29 @@ describe("TrainCase", () => {
 
     const res2 = titleCase("foo_bar", { normalize: true });
     expectTypeOf(res2).toEqualTypeOf<"Foo Bar">();
+
+    const res3 = titleCase("foo_and_bar", { normalize: true });
+    expectTypeOf(res3).toEqualTypeOf<"Foo and Bar">();
+  });
+});
+
+describe("TitleCase", () => {
+  test("types", () => {
+    expectTypeOf<TitleCase<string>>().toEqualTypeOf<string>();
+    expectTypeOf<TitleCase<string[]>>().toEqualTypeOf<string>();
+  });
+
+  test("string", () => {
+    assertType<TitleCase<"">>("");
+    assertType<TitleCase<"foo">>("Foo");
+    assertType<TitleCase<"foo_bar">>("Foo Bar");
+    assertType<TitleCase<"foo_and_bar">>("Foo and Bar");
+    assertType<TitleCase<"FOO_AND_BAR", true>>("Foo and Bar");
+    assertType<TitleCase<"and_foo", true>>("And Foo");
+  });
+
+  test("array", () => {
+    assertType<TitleCase<["foo", "and", "bar"]>>("Foo and Bar");
+    assertType<TitleCase<["FOO", "AND", "BAR"], true>>("Foo and Bar");
   });
 });

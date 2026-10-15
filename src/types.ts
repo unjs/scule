@@ -40,19 +40,66 @@ type JoinCapitalizedWords<
   Accumulator extends string = "",
   Normalize extends boolean | undefined = false,
 > = T extends readonly [infer F extends string, ...infer R extends string[]]
-  ? Accumulator extends ""
-    ? JoinCapitalizedWords<
-        R,
-        Joiner,
-        `${Capitalize<Normalize extends true ? Lowercase<F> : F>}`,
-        Normalize
-      >
-    : JoinCapitalizedWords<
-        R,
-        Joiner,
-        `${Accumulator}${Joiner}${Capitalize<Normalize extends true ? Lowercase<F> : F>}`,
-        Normalize
-      >
+  ? F extends ""
+    ? JoinCapitalizedWords<R, Joiner, Accumulator, Normalize>
+    : Accumulator extends ""
+      ? JoinCapitalizedWords<
+          R,
+          Joiner,
+          `${Capitalize<Normalize extends true ? Lowercase<F> : F>}`,
+          Normalize
+        >
+      : JoinCapitalizedWords<
+          R,
+          Joiner,
+          `${Accumulator}${Joiner}${Capitalize<Normalize extends true ? Lowercase<F> : F>}`,
+          Normalize
+        >
+  : Accumulator;
+
+type TitleCaseExceptions =
+  | "a"
+  | "an"
+  | "and"
+  | "as"
+  | "at"
+  | "but"
+  | "by"
+  | "for"
+  | "if"
+  | "in"
+  | "is"
+  | "nor"
+  | "of"
+  | "on"
+  | "or"
+  | "the"
+  | "to"
+  | "with";
+
+type JoinTitleCaseWords<
+  T extends readonly string[],
+  Joiner extends string = " ",
+  Accumulator extends string = "",
+  Normalize extends boolean | undefined = false,
+> = T extends readonly [infer F extends string, ...infer R extends string[]]
+  ? F extends ""
+    ? JoinTitleCaseWords<R, Joiner, Accumulator, Normalize>
+    : Accumulator extends ""
+      ? JoinTitleCaseWords<
+          R,
+          Joiner,
+          `${Capitalize<Normalize extends true ? Lowercase<F> : F>}`,
+          Normalize
+        >
+      : JoinTitleCaseWords<
+          R,
+          Joiner,
+          `${Accumulator}${Joiner}${Lowercase<F> extends TitleCaseExceptions
+            ? Lowercase<F>
+            : Capitalize<Normalize extends true ? Lowercase<F> : F>}`,
+          Normalize
+        >
   : Accumulator;
 
 type LastOfArray<T extends any[]> = T extends [...any, infer R] ? R : never;
@@ -180,6 +227,21 @@ export type TrainCase<
         : never
       : T extends readonly string[]
         ? JoinCapitalizedWords<T, Joiner, "", Normalize>
+        : never;
+
+export type TitleCase<
+  T,
+  Normalize extends boolean | undefined = false,
+> = string extends T
+  ? string
+  : string[] extends T
+    ? string
+    : T extends string
+      ? SplitByCase<T> extends readonly string[]
+        ? JoinTitleCaseWords<SplitByCase<T>, " ", "", Normalize>
+        : never
+      : T extends readonly string[]
+        ? JoinTitleCaseWords<T, " ", "", Normalize>
         : never;
 
 export type FlatCase<
