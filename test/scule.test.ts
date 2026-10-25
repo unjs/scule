@@ -140,6 +140,7 @@ describe("titleCase", () => {
     ["foo", "Foo"],
     ["foo-bar", "Foo Bar"],
     ["this-IS-aTitle", "This is a Title"],
+    ["and_foo", "And Foo"],
   ])("%s => %s", (input, expected) => {
     expect(titleCase(input)).toMatchObject(expected);
   });
