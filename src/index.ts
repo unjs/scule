@@ -10,11 +10,20 @@ import type {
 } from "./types";
 
 const NUMBER_CHAR_RE = /\d/;
+const UPPERCASE_RE = /\p{Lu}/u;
+const LOWERCASE_RE = /\p{Ll}/u;
+const CASE_FALLING_RE = /^([\s\S]+)(\p{Lu})$/u;
 const STR_SPLITTERS = ["-", "_", "/", "."] as const;
 
 export function isUppercase(char = ""): boolean | undefined {
   if (NUMBER_CHAR_RE.test(char)) {
     return undefined;
+  }
+  if (UPPERCASE_RE.test(char)) {
+    return true;
+  }
+  if (LOWERCASE_RE.test(char)) {
+    return false;
   }
   return char !== char.toLowerCase();
 }
@@ -60,12 +69,14 @@ export function splitByCase<
         continue;
       }
       // Case falling edge
-      if (previousUpper === true && isUpper === false && buff.length > 1) {
-        const lastChar = buff.at(-1);
-        parts.push(buff.slice(0, Math.max(0, buff.length - 1)));
-        buff = lastChar + char;
-        previousUpper = isUpper;
-        continue;
+      if (previousUpper === true && isUpper === false) {
+        const match = buff.match(CASE_FALLING_RE);
+        if (match) {
+          parts.push(match[1]);
+          buff = match[2] + char;
+          previousUpper = isUpper;
+          continue;
+        }
       }
     }
 
