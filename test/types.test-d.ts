@@ -15,6 +15,7 @@ describe("SplitByCase", () => {
     assertType<SplitByCase<"">>([]);
     assertType<SplitByCase<"foo">>(["foo"]);
     assertType<SplitByCase<"foo_bar-baz/qux">>(["foo", "bar", "baz", "qux"]);
+    assertType<SplitByCase<"A string with Spaces">>(["A", "string", "with", "Spaces"]);
     assertType<SplitByCase<"foo--bar-Baz">>(["foo", "", "bar", "Baz"]);
     assertType<SplitByCase<"foo123-bar">>(["foo123", "bar"]);
     assertType<SplitByCase<"fooBar">>(["foo", "Bar"]);
