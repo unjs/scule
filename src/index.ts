@@ -12,7 +12,7 @@ import type {
 const NUMBER_CHAR_RE = /\d/;
 const UPPERCASE_RE = /\p{Lu}/u;
 const LOWERCASE_RE = /\p{Ll}/u;
-const CASE_FALLING_RE = /^([\s\S]+)(\p{Lu})$/u;
+const CASE_FALLING_RE = /^([\s\S]+)([\s\S])$/u;
 const STR_SPLITTERS = ["-", "_", "/", "."] as const;
 
 export function isUppercase(char = ""): boolean | undefined {
