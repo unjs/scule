@@ -1,6 +1,7 @@
 import { describe, test, expect } from "vitest";
 import {
   splitByCase,
+  isUppercase,
   pascalCase,
   kebabCase,
   camelCase,
@@ -32,12 +33,38 @@ describe("splitByCase", () => {
       ["\\", ".", "-"],
     ],
     ["new-name-value", ["new-name-value"], ["_"]],
+    // Unicode
+    ["𐐀foo", ["𐐀foo"]],
+    ["𐐀𐐁foo", ["𐐀", "𐐁foo"]],
+    ["A𐐀foo", ["A", "𐐀foo"]],
+    ["foo𐐀bar", ["foo", "𐐀bar"]],
+    ["fooBärBaz", ["foo", "Bär", "Baz"]],
+    ["fooБАРbaz", ["foo", "БА", "Рbaz"]],
+    ["БАРБар", ["БАР", "Бар"]],
+    ["Aǅa", ["A", "ǅa"]],
+    ["ǅa", ["ǅa"]],
   ])("%s => %s", (input, expected, customSplitters?) => {
     if (customSplitters) {
       expect(splitByCase(input, customSplitters)).toMatchObject(expected);
     } else {
       expect(splitByCase(input)).toMatchObject(expected);
     }
+  });
+});
+
+describe("isUppercase", () => {
+  test.each([
+    ["", false],
+    ["A", true],
+    ["a", false],
+    ["1", undefined],
+    ["-", false],
+    ["É", true],
+    ["é", false],
+    ["𐐀", true],
+    ["𐐨", false],
+  ])("%s => %s", (input, expected) => {
+    expect(isUppercase(input)).toBe(expected);
   });
 });
 
@@ -74,6 +101,8 @@ describe("kebabCase", () => {
     ["FooBAR", "foo-bar"],
     ["ALink", "a-link"],
     ["FOO_BAR", "foo-bar"],
+    ["𐐀foo", "𐐨foo"],
+    ["foo𐐀bar", "foo-𐐨bar"],
   ])("%s => %s", (input, expected) => {
     expect(kebabCase(input)).toMatchObject(expected);
   });
