@@ -1,4 +1,4 @@
-type Splitter = "-" | "_" | "/" | ".";
+type Splitter = "-" | "_" | "/" | "." | " ";
 type FirstOfString<S extends string> = S extends `${infer F}${string}`
   ? F
   : never;
@@ -51,7 +51,9 @@ export type SplitByCase<
   ? string[]
   : T extends `${infer F}${infer R}`
     ? [LastOfArray<Accumulator>] extends [never]
-      ? SplitByCase<R, Separator, [F]>
+      ? F extends Separator
+        ? SplitByCase<R, Separator, ["", ""]>
+        : SplitByCase<R, Separator, [F]>
       : LastOfArray<Accumulator> extends string
         ? R extends ""
           ? SplitByCase<
